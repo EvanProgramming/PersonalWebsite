@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
     font-family: "arial", sans-serif;
+    scroll-behavior: smooth; /* 平滑滚动 */
+    scrollbar-width: thin; /* 设置滚动条宽度为细 */
+    scrollbar-color: #00a8e8 transparent; /* 设置滚动条颜色 */
+    overflow-x: hidden; /* 禁止水平滚动 */
 }
 
 @keyframes spin360dgr {
@@ -25,7 +29,7 @@
 }
 
 body {
-    scroll-behavior: smooth; /* 平滑滚动 */
+    
 }
 
 #fullscreen-nav {
@@ -143,6 +147,12 @@ header a{
     transition-duration: 5s;
     transition-timing-function: ease;
     transition-delay: 4s;
+    overflow-y: scroll; /* 允许垂直滚动 */
+    overflow-x: hidden; /* 禁止水平滚动 */
+    -webkit-overflow-scrolling: touch; /* 支持触摸滚动 */
+    /* 滚动容器样式 */
+    scroll-snap-type: y mandatory; /* 强制垂直滚动对齐 */
+    scroll-behavior: smooth; /* 平滑滚动 */
 }
 
 .blue-overlay {
@@ -299,4 +309,11 @@ header a{
 
 .word3.active {
     color: #001f3f;
+}
+
+.about {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    scroll-snap-align: start; /* 对齐到滚动容器顶部 */;
 }
