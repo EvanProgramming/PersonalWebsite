@@ -1,0 +1,302 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "arial", sans-serif;
+}
+
+@keyframes spin360dgr {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spin180dgr {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+body {
+    scroll-behavior: smooth; /* 平滑滚动 */
+}
+
+#fullscreen-nav {
+    position: fixed;
+    color: transparent;
+    bottom: -100vh;  /* 隐藏在屏幕底部 */
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition-property: all;
+    transition-duration: 1.5s;
+    transition-timing-function: ease;
+    transition-delay: 0.5s;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+/* 激活时导航滑到屏幕底部 */
+#fullscreen-nav.active {
+  bottom: 0;
+}
+
+/* 菜单和按钮样式 */
+#fullscreen-nav ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+#fullscreen-nav ul li {
+  margin: 20px 0;
+}
+
+#close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2.5em;
+  background: none;
+  border: none;
+  color: #00a8e8;
+  opacity: 0;
+  cursor: pointer;
+  transition-property: color, opacity;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+}
+
+#close-btn:hover {
+    animation: spin180dgr 0.5s ease; /* 鼠标悬停时旋转 */
+    color: #00a8e8; /* 鼠标悬停时变色 */
+}
+
+#close-btn.active {
+    opacity: 1;
+    color: #00a8e8; /* 激活时变色 */
+}
+
+#menu-btn {
+  font-size: 2em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  height: 0px;
+  width: 0px;
+  position: fixed;
+  top: 20px;
+  left: 30px;
+  z-index: 901;
+}
+
+#overlay {
+    animation: fadeOut 5s ease; /* 初始时淡出 */
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.5); /* 半透明白色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    opacity: 0;
+    transition: opacity 2s ease;
+    z-index: 999; /* 在导航下面（导航1000） */
+}
+
+/* 当导航打开时，显示遮罩层并能阻止点击 */
+#overlay.active {
+    opacity: 1;
+    pointer-events: auto; /* 允许遮罩接收鼠标事件，阻止下面内容被点 */
+}
+
+header a{
+    text-decoration: none;
+    font-size: 1em;
+    color: black;
+}
+
+#fullscreen-nav.active a {
+    animation: fadeIn 3s ease forwards;
+}
+
+.hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 100;
+    background-color: #005070;
+    transition-property: all;
+    transition-duration: 5s;
+    transition-timing-function: ease;
+    transition-delay: 4s;
+}
+
+.blue-overlay {
+    transform: skewX(-20deg);
+    position: relative;
+    right: 150vw;
+    width: 30%;
+    height: 100%;
+    background: rgba(0, 168, 232, 0.5); /* 半透明蓝色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    z-index: 200;
+    opacity: 1;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 1s;
+}
+
+.blue-overlay2 {
+    transform: skewX(-20deg);
+    position: relative;
+    right: 150vw;
+    width: 30%;
+    height: 100%;
+    background: rgba(0, 168, 232, 0.5); /* 半透明蓝色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    z-index: 200;
+    opacity: 1;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+.white-overlay {
+    transform: skewX(-20deg);
+    position: relative;
+    right: 150vw;
+    width: 30%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5); /* 半透明蓝色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    z-index: 200;
+    opacity: 1;
+    display: inline-block;
+    float: left;
+    overflow: hidden; /* 防止内容溢出 */
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 0.5s;
+}
+
+.blue-overlay:hover{
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.blue-overlay2:hover{
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.white-overlay:hover{
+  background: rgba(0, 168, 232, 0.5);
+}
+
+.blue-overlay.active {
+    transform: skewX(-30deg);
+    right: 0; /* 激活时滑动到屏幕右侧 */
+}
+.blue-overlay2.active {
+    transform: skewX(-30deg);
+    right: 0; /* 激活时滑动到屏幕右侧 */
+}
+.white-overlay.active {
+    transform: skewX(-30deg);
+    right: 0; /* 激活时滑动到屏幕右侧 */
+}
+
+.hero.active {
+    background-color: #9bdef9; /* 激活时背景色变为蓝色 */
+}
+
+.logo {
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  top: 10vh;
+}
+
+.hero-content {
+    z-index: 988;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.word1 {
+    font-size: 3em;
+    margin: 10px;
+    color: #005070;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 4s;
+}
+
+.word2 {
+    font-size: 3em;
+    margin: 10px;
+    color: #005070;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 5s;
+}
+
+.word3 {
+    font-size: 4em;
+    margin: 10px;
+    color: #005070;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 5s;
+}
+
+.word1.active {
+    color: #001f3f;
+}
+
+.word2.active {
+    color: #001f3f;
+}
+
+.word3.active {
+    color: #001f3f;
+}
