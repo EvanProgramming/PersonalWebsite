@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('overlay');
   const navlink = document.getElementById('nav-link');
   
-  
 
   // Add active class to overlays on page load
   const blueOverlay1 = document.querySelector('.blue-overlay');
@@ -43,38 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove('active');
   });
 
-  // About overlays 激活逻辑
-  const aboutSection = document.querySelector('.about');
-  const aboutOverlay1 = document.querySelector('.aboutOverlay1');
-  const aboutOverlay2 = document.querySelector('.aboutOverlay2');
-  const aboutOverlay3 = document.querySelector('.aboutOverlay3');
-  let aboutActivated = false;
-
-  function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top < window.innerHeight &&
-      rect.bottom > 0
-    );
+  // 让 hero 按钮 5 秒后再出现
+  const heroBtn = document.querySelector('.hero a');
+  if (heroBtn) {
+    setTimeout(() => {
+      heroBtn.classList.add('show');
+    }, 5000);
   }
-
-  // 修改 isInViewport 增加阈值，只有当 about 区域顶部进入视口 60% 时才触发动画
-  function isInViewportWithThreshold(element, threshold = 0.6) {
-    const rect = element.getBoundingClientRect();
-    const triggerPoint = window.innerHeight * threshold;
-    return rect.top < triggerPoint && rect.bottom > 0;
-  }
-
-  function activateAboutOverlays() {
-    if (!aboutActivated && isInViewportWithThreshold(aboutSection, 0.6)) {
-      if (aboutOverlay1) aboutOverlay1.classList.add('active');
-      if (aboutOverlay2) aboutOverlay2.classList.add('active');
-      if (aboutOverlay3) aboutOverlay3.classList.add('active');
-      aboutActivated = true;
-    }
-  }
-
-  window.addEventListener('scroll', activateAboutOverlays);
-  // 页面加载时也检测一次
-  activateAboutOverlays();
 });

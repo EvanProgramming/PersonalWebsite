@@ -1,0 +1,84 @@
+body {
+    background: linear-gradient(180deg, #00a8e8 0%, #005070 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-container, .register-container {
+    background: #fff;
+    padding: 2.5em 2em 2em 2em;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,168,232,0.15);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    color: #005070;
+    margin-bottom: 1em;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 0.8em;
+    border: 1.5px solid #00a8e8;
+    border-radius: 6px;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.2s;
+}
+input:focus {
+    border: 1.5px solid #005070;
+}
+
+button[type="submit"] {
+    background: linear-gradient(180deg, #00a8e8 0%, #005070 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8em;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0.5em;
+    transition: background 0.2s, filter 0.2s;
+}
+button[type="submit"]:hover {
+    filter: brightness(1.08);
+}
+button[type="submit"]:active {
+    filter: brightness(0.92);
+}
+
+.switch-link {
+    margin-top: 1em;
+    font-size: 0.95em;
+    color: #005070;
+}
+.switch-link a {
+    color: #00a8e8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.message {
+    margin-top: 0.7em;
+    min-height: 1.2em;
+    font-size: 0.98em;
+    color: #d32f2f;
+    text-align: center;
+}
+.message.success {
+    color: #388e3c;
+}

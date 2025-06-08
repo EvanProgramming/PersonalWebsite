@@ -156,9 +156,9 @@ header a{
 }
 
 .blue-overlay {
-    transform: skewX(20deg);
+    transform: skewX(-20deg);
     position: relative;
-    right: 150vw;
+    top: 150vw;
     width: 30%;
     height: 100%;
     background: rgba(0, 168, 232, 0.5); /* 半透明蓝色 */
@@ -179,7 +179,7 @@ header a{
 .blue-overlay2 {
     transform: skewX(20deg);
     position: relative;
-    right: 150vw;
+    bottom: 150vw;
     width: 30%;
     height: 100%;
     background: rgba(0, 168, 232, 0.5); /* 半透明蓝色 */
@@ -198,7 +198,7 @@ header a{
 }
 
 .white-overlay {
-    transform: skewX(20deg);
+    transform: skewX(-20deg);
     position: relative;
     right: 150vw;
     width: 30%;
@@ -232,11 +232,11 @@ header a{
 
 .blue-overlay.active {
     transform: skewX(-30deg);
-    right: 0; /* 激活时滑动到屏幕右侧 */
+    top: 0; /* 激活时滑动到屏幕右侧 */
 }
 .blue-overlay2.active {
-    transform: skewX(-30deg);
-    right: 0; /* 激活时滑动到屏幕右侧 */
+    transform: skewX(30deg);
+    bottom: 0; /* 激活时滑动到屏幕右侧 */
 }
 .white-overlay.active {
     transform: skewX(-30deg);
@@ -257,7 +257,7 @@ header a{
 .hero-content {
     z-index: 988;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -318,111 +318,49 @@ header a{
     scroll-snap-align: start; /* 对齐到滚动容器顶部 */;
 }
 
-.about {
-    background-color: #9bdef9; /* 设置背景颜色 */
-    position: relative;
-}
-
-.aboutOverlay1 {
-    transform: skewX(-20deg);
-    position: relative;
-    left: 150vw;
-    width: 30%;
-    height: 100%;
-    background: rgba(0, 168, 232, 0.5); /* 半透明蓝色 */
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
-    pointer-events: none; /* 默认不挡鼠标事件 */
-    z-index: 200;
-    opacity: 1;
-    display: inline-block;
-    float: right;
-    overflow: hidden;
-    transition-property: all;
-    transition-duration: 3s;
-    transition-timing-function: ease;
-    transition-delay: 1s;
-}
-
-.aboutOverlay3 {
-    transform: skewX(-20deg);
-    position: relative;
-    left: 150vw;
-    width: 30%;
-    height: 100%;
-    background: rgba(0, 168, 232, 0.5); /* 半透明蓝色 */
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
-    pointer-events: none; /* 默认不挡鼠标事件 */
-    z-index: 200;
-    opacity: 1;
-    display: inline-block;
-    float: right;
-    overflow: hidden;
-    transition-property: all;
-    transition-duration: 3s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-}
-
-.aboutOverlay2 {
-    transform: skewX(-20deg);
-    position: relative;
-    left: 150vw;
-    width: 30%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5); /* 半透明蓝色 */
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
-    pointer-events: none; /* 默认不挡鼠标事件 */
-    z-index: 200;
-    opacity: 1;
-    display: inline-block;
-    float: right;
-    overflow: hidden; /* 防止内容溢出 */
-    transition-property: all;
-    transition-duration: 3s;
-    transition-timing-function: ease;
-    transition-delay: 0.5s;
-}
-
-.aboutOverlay1:hover{
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.aboutOverlay3:hover{
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.aboutOverlay2:hover{
-  background: rgba(0, 168, 232, 0.5);
-}
-
-.aboutOverlay1.active {
-    transform: skewX(30deg);
-    left: -10.5vw; /* 激活时滑动到屏幕右侧 */
-}
-.aboutOverlay3.active {
-    transform: skewX(30deg);
-    left: -10.5vw; /* 激活时滑动到屏幕右侧 */
-}
-.aboutOverlay2.active {
-    transform: skewX(30deg);
-    left: -10.5vw; /* 激活时滑动到屏幕右侧 */
-}
-
-.about h1 {
+.hero a {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: auto;
-    height: auto;
+    min-width: 120px;
     text-align: center;
-    font-size: 2em;
-    color: #005070;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 500;
+    text-decoration: none;
+    border: 2px solid #00a8e8;
+    border-radius: 8px;
+    padding: 12px 28px;
+    color: #fff;
+    font-size: 1.2em;
+    opacity: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, #00a8e8 0%, #005070 100%);
+    transition: background 0.3s, color 0.3s, box-shadow 0.2s, border 0.3s, opacity 0.8s;
+    z-index: 990;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.hero a.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hero a:hover {
+    background: linear-gradient(180deg, #005070 0%, #00a8e8 100%);
+    color: #fff;
+    border: 2px solid #005070;
+    box-shadow: 0 6px 24px rgba(0,168,232,0.18);
+    filter: brightness(1.08);
+}
+
+.hero a:active {
+    background: #00334d;
+    color: #b3e6fa;
+    border: 2px solid #00334d;
+    box-shadow: 0 2px 8px rgba(0,168,232,0.10);
+    filter: brightness(0.95);
 }
