@@ -35,11 +35,15 @@ main {
 #fullscreen-nav {
     position: fixed;
     color: transparent;
-    bottom: -100vh;  /* 隐藏在屏幕底部 */
+    bottom: -100vh;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: transparent;
+    background: rgba(255,255,255,0.18);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+    border-bottom: 1.5px solid rgba(255,255,255,0.35);
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,22 +54,59 @@ main {
     transition-delay: 0.5s;
     overflow: hidden;
     z-index: 1000;
+    isolation: isolate;
 }
 
-/* 激活时导航滑到屏幕底部 */
 #fullscreen-nav.active {
-  bottom: 0;
+    bottom: 0;
 }
 
-/* 菜单和按钮样式 */
+#fullscreen-nav::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 0 0 32px 32px;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.12) 100%);
+    opacity: 0.85;
+    z-index: 1;
+}
+
+#fullscreen-nav .highlight {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 0 0 32px 32px;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(100deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.10) 100%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    mix-blend-mode: lighten;
+    filter: blur(2.5px);
+    animation: glassHighlightMove 3.5s linear infinite;
+    transition: opacity 0.3s;
+}
+
+#fullscreen-nav:hover .highlight {
+    opacity: 1;
+}
+
+#fullscreen-nav ul, #fullscreen-nav button, #fullscreen-nav li, #fullscreen-nav a {
+    position: relative;
+    z-index: 2;
+}
+
 #fullscreen-nav ul {
-  list-style: none;
-  text-align: center;
-  padding: 0;
+    background: transparent;
+    border-radius: 18px;
+    padding: 2em 2em 1em 2em;
+    box-shadow: 0 2px 12px 0 rgba(0,168,232,0.08);
 }
 
 #fullscreen-nav ul li {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 #close-btn {
@@ -378,7 +419,7 @@ header a{
     z-index: 200;
     opacity: 1;
     display: inline-block;
-    float: right;
+    float: right; 
     overflow: hidden; /* 防止内容溢出 */
     transition-property: all;
     transition-duration: 3s;

@@ -25,6 +25,35 @@
     to { opacity: 0; }
 }
 
+@keyframes glassHighlight {
+  0% {
+    opacity: 0.7;
+    transform: translateX(-60%) skewX(-20deg);
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(10%) skewX(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(30%) skewX(10deg);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateX(120%) skewX(20deg);
+  }
+}
+
+/* 动态高光动画 */
+@keyframes glassHighlightMove {
+    0% {
+        background-position: -120% 0;
+    }
+    100% {
+        background-position: 120% 0;
+    }
+}
+
 main {
     scroll-behavior: smooth; /* 平滑滚动 */
     scrollbar-width: thin; /* 设置滚动条宽度为细 */
@@ -35,11 +64,15 @@ main {
 #fullscreen-nav {
     position: fixed;
     color: transparent;
-    bottom: -100vh;  /* 隐藏在屏幕底部 */
+    bottom: -100vh;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: transparent;
+    background: rgba(255,255,255,0.18);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+    border-bottom: 1.5px solid rgba(255,255,255,0.35);
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,22 +83,54 @@ main {
     transition-delay: 0.5s;
     overflow: hidden;
     z-index: 1000;
+    isolation: isolate;
 }
 
-/* 激活时导航滑到屏幕底部 */
 #fullscreen-nav.active {
-  bottom: 0;
+    bottom: 0;
 }
 
-/* 菜单和按钮样式 */
+#fullscreen-nav::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 0 0 32px 32px;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.12) 100%);
+    opacity: 0.85;
+    z-index: 1;
+}
+
+#fullscreen-nav::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    top: 0;
+    width: 80%;
+    height: 18%;
+    border-radius: 40px;
+    background: linear-gradient(120deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.08) 100%);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 2;
+    filter: blur(2.5px);
+    animation: glassHighlight 4.5s cubic-bezier(.4,.2,.6,1) infinite;
+}
+
+#fullscreen-nav ul, #fullscreen-nav button, #fullscreen-nav li, #fullscreen-nav a {
+    position: relative;
+    z-index: 2;
+}
+
 #fullscreen-nav ul {
-  list-style: none;
-  text-align: center;
-  padding: 0;
+    background: transparent;
+    border-radius: 18px;
+    padding: 2em 2em 1em 2em;
+    box-shadow: 0 2px 12px 0 rgba(0,168,232,0.08);
 }
 
 #fullscreen-nav ul li {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 #close-btn {
@@ -323,25 +388,121 @@ header a{
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
-    min-width: 120px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    border: 2px solid #00a8e8;
-    border-radius: 8px;
-    padding: 12px 28px;
+    min-width: 140px;
+    padding: 16px 40px;
+    font-size: 1.25em;
+    font-weight: 600;
     color: #fff;
-    font-size: 1.2em;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(0,168,232,0.18) 100%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 8px 0 rgba(0,168,232,0.10);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    transition: background 0.3s, box-shadow 0.3s, border 0.3s, color 0.3s, filter 0.2s, opacity 0.8s;
+    letter-spacing: 1.2px;
+    z-index: 990;
     opacity: 0;
     pointer-events: none;
-    background: linear-gradient(180deg, #00a8e8 0%, #005070 100%);
-    transition: background 0.3s, color 0.3s, box-shadow 0.2s, border 0.3s, opacity 0.8s;
-    z-index: 990;
-    font-weight: bold;
-    letter-spacing: 1px;
+    overflow: hidden;
+    isolation: isolate;
+    /* 让高光和内容分层 */
+}
+
+.hero a::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 22px;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.08) 100%);
+    opacity: 0.92;
+    z-index: 1;
+    transition: opacity 0.3s;
+}
+
+.hero a::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    top: 7%;
+    width: 65%;
+    height: 22%;
+    border-radius: 50%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.15) 100%);
+    opacity: 0.85;
+    filter: blur(2.5px);
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 8px 0 rgba(255,255,255,0.12);
+    animation: glassHighlight 3.5s cubic-bezier(.4,.2,.6,1) infinite;
+}
+
+.hero a .liquid {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 22px;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(ellipse 80% 60% at 60% 30%, rgba(255,255,255,0.18) 0%, rgba(0,168,232,0.10) 100%);
+    opacity: 0.7;
+    mix-blend-mode: lighten;
+    filter: blur(6px) saturate(1.2);
+    transition: opacity 0.3s;
+}
+
+.hero a .highlight {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 22px;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(110deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.65) 50%, rgba(255,255,255,0.12) 100%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+    mix-blend-mode: lighten;
+    filter: blur(1.5px);
+    animation: glassHighlightMove 2.8s linear infinite;
+    transition: opacity 0.3s;
+}
+
+.hero a:hover .highlight {
+    opacity: 1;
+}
+
+/* 导航栏动态高光层 */
+#fullscreen-nav .highlight {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 0 0 32px 32px;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(100deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.10) 100%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    mix-blend-mode: lighten;
+    filter: blur(2.5px);
+    animation: glassHighlightMove 3.5s linear infinite;
+    transition: opacity 0.3s;
+}
+
+#fullscreen-nav:hover .highlight {
+    opacity: 1;
+}
+
+.hero a span {
+    position: relative;
+    z-index: 3;
+    text-shadow: 0 2px 8px rgba(0,168,232,0.10), 0 1px 0 #fff;
+    letter-spacing: 1.2px;
 }
 
 .hero a.show {
@@ -349,18 +510,29 @@ header a{
     pointer-events: auto;
 }
 
+.hero a:hover::before {
+    opacity: 1;
+}
+
+.hero a:hover::after {
+    opacity: 1;
+}
+
+.hero a:hover .liquid {
+    opacity: 1;
+}
+
 .hero a:hover {
-    background: linear-gradient(180deg, #005070 0%, #00a8e8 100%);
-    color: #fff;
-    border: 2px solid #005070;
-    box-shadow: 0 6px 24px rgba(0,168,232,0.18);
-    filter: brightness(1.08);
+    background: linear-gradient(135deg, rgba(255,255,255,0.32) 0%, rgba(0,168,232,0.22) 100%);
+    border: 1.5px solid #00a8e8;
+    color: #005070;
+    box-shadow: 0 12px 36px 0 rgba(0,168,232,0.18), 0 2px 12px 0 rgba(0,168,232,0.12);
+    filter: brightness(1.09);
 }
 
 .hero a:active {
-    background: #00334d;
-    color: #b3e6fa;
-    border: 2px solid #00334d;
-    box-shadow: 0 2px 8px rgba(0,168,232,0.10);
-    filter: brightness(0.95);
+    background: linear-gradient(135deg, rgba(0, 168, 232, 0.18) 0%, rgba(255,255,255,0.12) 100%);
+    color: #fff;
+    border: 1.5px solid #005070;
+    filter: brightness(0.97);
 }
