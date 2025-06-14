@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 让所有按钮在两个blue-overlay动画完成后淡入
-  const heroBtns = document.querySelectorAll('.hero .glass-btn');
+  const heroBtns = document.querySelectorAll('.hero .modern-btn');
 
   let overlay1Done = false;
   let overlay2Done = false;
