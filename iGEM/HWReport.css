@@ -228,8 +228,46 @@ main {
   color: #fff !important;
 }
 
-@media (max-width: 700px) {
-  .blue-overlay, .blue-overlay2 {
-    width: 50%;
-  }
+#future-plan {
+  padding: 3em 0;
+  background: rgba(255,255,255,0.13);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+#future-plan, #future-plan .report-card, #future-plan .reports-title, #future-plan h3, #future-plan p {
+  color: #fff !important;
+}
+
+#future-plan .report-card {
+  background: rgba(0,168,232,0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0,168,232,0.08);
+  margin-bottom: 1.5em;
+  transition: background 0.3s, box-shadow 0.3s, color 0.2s;
+}
+
+#future-plan .report-card:hover {
+  background: rgba(0, 255, 76, 0.13);
+  box-shadow: 0 4px 18px 0 rgba(0,168,232,0.18);
+  color: var(--igem-green);
+}
+
+.future-text {
+  color: #fff;
+  font-size: 1.15em;
+  line-height: 1.8;
+  background: rgba(0,168,232,0.06);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0,168,232,0.06);
+  padding: 2em 2em;
+  margin-bottom: 2em;
+  margin-top: 1.5em;
+  text-align: left;
+}
+
+.icon-title {
+  font-size: 1.3em;
+  vertical-align: middle;
+  margin-right: 0.3em;
 }
