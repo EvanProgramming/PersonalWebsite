@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove('active');
   });
 
-  // 让按钮在两个blue-overlay动画完成后淡入
-  const heroBtn = document.querySelector('.hero a');
+  // 让所有按钮在两个blue-overlay动画完成后淡入
+  const heroBtns = document.querySelectorAll('.hero .glass-btn');
 
   let overlay1Done = false;
   let overlay2Done = false;
 
-  function tryShowBtn() {
-    if (overlay1Done && overlay2Done && heroBtn) {
-      heroBtn.classList.add('show');
+  function tryShowBtns() {
+    if (overlay1Done && overlay2Done && heroBtns.length) {
+      heroBtns.forEach(btn => btn.classList.add('show'));
     }
   }
 
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     blueOverlay1.addEventListener('transitionend', (e) => {
       if (e.propertyName === 'right' || e.propertyName === 'transform') {
         overlay1Done = true;
-        tryShowBtn();
+        tryShowBtns();
       }
     });
   }
@@ -66,23 +66,30 @@ document.addEventListener('DOMContentLoaded', () => {
     blueOverlay2.addEventListener('transitionend', (e) => {
       if (e.propertyName === 'right' || e.propertyName === 'transform') {
         overlay2Done = true;
-        tryShowBtn();
+        tryShowBtns();
       }
     });
   }
 
+  // 若页面已激活（刷新后动画已完成），直接显示按钮
+  if (blueOverlay1 && blueOverlay1.classList.contains('active') &&
+      blueOverlay2 && blueOverlay2.classList.contains('active')) {
+    overlay1Done = true;
+    overlay2Done = true;
+    tryShowBtns();
+  }
+
   // 动态高光随鼠标移动
-  const glassBtn = document.querySelector('.glass-btn');
-  const highlight = document.querySelector('.glass-btn .highlight');
-
-  glassBtn.addEventListener('mousemove', (e) => {
-    const rect = glassBtn.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    highlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 60%, transparent 100%)`;
-  });
-
-  glassBtn.addEventListener('mouseleave', () => {
-    highlight.style.background = '';
+  heroBtns.forEach(glassBtn => {
+    const highlight = glassBtn.querySelector('.highlight');
+    glassBtn.addEventListener('mousemove', (e) => {
+      const rect = glassBtn.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      highlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 60%, transparent 100%)`;
+    });
+    glassBtn.addEventListener('mouseleave', () => {
+      highlight.style.background = '';
+    });
   });
 });
