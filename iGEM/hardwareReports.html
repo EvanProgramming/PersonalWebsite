@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>硬件组报告 | iGEM Hardware</title>
+    <link rel="stylesheet" href="style.css"><!-- 保持与iGEM.html一致的样式 -->
+    <style>
+        body {
+            background: #f5f7fa; /* 与iGEM.html一致的浅色背景 */
+            color: #222;
+            margin: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        .hero {
+            background: #e3eafc;
+            padding: 60px 20px 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            color: #2d5be3;
+            font-size: 2.8em;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            color: #444;
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .timeline-container {
+            overflow-x: auto;
+            padding: 40px 0 20px 0;
+            background: #fff;
+        }
+        .timeline {
+            display: flex;
+            gap: 40px;
+            min-width: 700px;
+            padding: 0 40px;
+        }
+        .timeline-event {
+            flex: 0 0 220px;
+            background: #e3eafc;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(45,91,227,0.07);
+            padding: 24px 18px;
+            text-align: center;
+            position: relative;
+        }
+        .timeline-event:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            width: 16px;
+            height: 4px;
+            background: #2d5be3;
+            border-radius: 2px;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .timeline-event:first-child:before {
+            display: none;
+        }
+        .timeline-event h3 {
+            margin: 0 0 10px 0;
+            color: #2d5be3;
+            font-size: 1.1em;
+        }
+        .timeline-event p {
+            margin: 0;
+            color: #333;
+            font-size: 0.98em;
+        }
+        .section-content {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+        .section-content h2 {
+            color: #2d5be3;
+            margin-bottom: 18px;
+        }
+        .section-content p {
+            color: #444;
+            line-height: 1.7;
+        }
+        /* nav样式与iGEM.html一致 */
+        nav {
+            background: #2d5be3;
+            padding: 0 30px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(45,91,227,0.07);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 32px;
+        }
+        nav li {
+            display: inline;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.08em;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #a8c1fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏，链接地址已更改 -->
+    <nav>
+        <ul>
+            <li><a href="/index.html">主页</a></li>
+            <li><a href="/iGEM/iGEM.html">iGEM主页</a></li>
+            <li><a href="/iGEM/hardwareReports.html">硬件组报告</a></li>
+            <li><a href="/iGEM/softwareReports.html">软件组报告</a></li>
+            <li><a href="/iGEM/team.html">团队介绍</a></li>
+        </ul>
+    </nav>
+
+    <!-- hero 部分 -->
+    <section class="hero">
+        <h1>硬件组报告</h1>
+        <p>
+            我们致力于为生物实验提供创新的硬件解决方案。当前项目聚焦于一款智能生物实验手套箱，旨在提升实验安全性与自动化水平。未来，我们还将探索更多实验室自动化与智能化的硬件方向，持续推动实验室创新。
+        </p>
+    </section>
+
+    <!-- 横向滚动时间轴 -->
+    <div class="timeline-container">
+        <div class="timeline">
+            <div class="timeline-event">
+                <h3>2024.3 项目立项</h3>
+                <p>硬件组成立，确定以手套箱为核心的研发方向。</p>
+            </div>
+            <div class="timeline-event">
+                <h3>2024.4 需求调研</h3>
+                <p>走访实验室，收集用户需求，制定初步设计方案。</p>
+            </div>
+            <div class="timeline-event">
+                <h3>2024.5 方案设计</h3>
+                <p>完成手套箱结构与控制系统的初步设计。</p>
+            </div>
+            <div class="timeline-event">
+                <h3>2024.6 原型制作</h3>
+                <p>制作首台手套箱原型，进行功能测试。</p>
+            </div>
+            <div class="timeline-event">
+                <h3>2024.7 持续优化</h3>
+                <p>根据测试反馈，优化结构与控制逻辑，准备后续迭代。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容区（可随时补充） -->
+    <div class="section-content">
+        <h2>近期进展</h2>
+        <p>
+            目前我们已完成手套箱的初步原型制作，并在实验室环境下进行了多轮测试。团队成员积极参与各项硬件开发与调试工作，持续优化产品性能。
+        </p>
+        <h2>未来展望</h2>
+        <p>
+            除了手套箱项目，我们还计划开发更多实验室自动化设备，如智能培养箱、环境监控模块等，助力实验室高效与安全运行。
+        </p>
+    </div>
+</body>
+</html>

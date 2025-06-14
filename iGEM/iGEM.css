@@ -59,8 +59,6 @@ main {
     scrollbar-width: thin; /* 设置滚动条宽度为细 */
     scrollbar-color: #00a8e8 transparent; /* 设置滚动条颜色 */
     overflow-x: hidden; /* 禁止水平滚动 */
-    box-sizing: border-box;
-    border: none;
 }
 
 #fullscreen-nav {
@@ -70,10 +68,10 @@ main {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(255,255,255,0.18);
+    background: rgba(26, 122, 46, 0.18);
     -webkit-backdrop-filter: blur(18px) saturate(180%);
     backdrop-filter: blur(18px) saturate(180%);
-    border-bottom: 1.5px solid rgba(255,255,255,0.35);
+    border-bottom: 1.5px solid var(--igem-green);
     box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
     display: flex;
     flex-direction: column;
@@ -98,7 +96,7 @@ main {
     left: 0; top: 0; right: 0; bottom: 0;
     border-radius: 0 0 32px 32px;
     pointer-events: none;
-    background: linear-gradient(120deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.12) 100%);
+    background: linear-gradient(120deg, rgba(65,182,73,0.38) 0%, rgba(255,255,255,0.12) 100%);
     opacity: 0.85;
     z-index: 1;
 }
@@ -111,7 +109,7 @@ main {
     width: 80%;
     height: 18%;
     border-radius: 40px;
-    background: linear-gradient(120deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.08) 100%);
+    background: linear-gradient(120deg, rgba(255,209,0,0.45) 0%, rgba(255,255,255,0.08) 100%);
     opacity: 0.7;
     pointer-events: none;
     z-index: 2;
@@ -125,6 +123,8 @@ main {
 }
 
 #fullscreen-nav ul {
+    position: relative;
+    z-index: 4;
     background: transparent;
     border-radius: 18px;
     padding: 2em 2em 1em 2em;
@@ -132,7 +132,14 @@ main {
 }
 
 #fullscreen-nav ul li {
+    position: relative;
+    z-index: 5;
     margin: 20px 0;
+}
+
+#fullscreen-nav a, #fullscreen-nav button {
+    position: relative;
+    z-index: 6;
 }
 
 #close-btn {
@@ -142,7 +149,7 @@ main {
   font-size: 2.5em;
   background: none;
   border: none;
-  color: #00a8e8;
+  color: var(--igem-green);
   opacity: 0;
   cursor: pointer;
   transition-property: color, opacity;
@@ -157,7 +164,7 @@ main {
 
 #close-btn.active {
     opacity: 1;
-    color: #00a8e8; /* 激活时变色 */
+    color: var(--igem-yellow); /* 激活时变色 */
 }
 
 #menu-btn {
@@ -165,7 +172,7 @@ main {
   background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  color: var(--igem-white);
   height: 0px;
   width: 0px;
   position: fixed;
@@ -178,13 +185,13 @@ main {
     animation: fadeOut 5s ease; /* 初始时淡出 */
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255, 255, 255, 0.5); /* 半透明白色 */
+    background: rgba(26, 122, 46, 0.18); /* 半透明白色 */
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
     pointer-events: none; /* 默认不挡鼠标事件 */
     opacity: 0;
     transition: opacity 2s ease;
-    z-index: -1000; /* 彻底放到所有主内容和装饰层下方，绝不遮挡标题和按钮 */
+    z-index: 999; /* 在导航下面（导航1000） */
 }
 
 /* 当导航打开时，显示遮罩层并能阻止点击 */
@@ -196,7 +203,7 @@ main {
 header a{
     text-decoration: none;
     font-size: 1em;
-    color: black;
+    color: var(--igem-dark-green);
 }
 
 #fullscreen-nav.active a {
@@ -207,83 +214,139 @@ header a{
     position: relative;
     width: 100vw;
     height: 100vh;
-    min-height: 100vh;
     overflow: hidden;
     z-index: 100;
-    background-color: #005070;
+    background-color: var(--igem-green);
     transition-property: all;
     transition-duration: 5s;
     transition-timing-function: ease;
     transition-delay: 4s;
-    overflow-y: hidden;
-    /* 内容居中上方 */
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    padding-top: 10vh;
-    box-sizing: border-box;
-    border-bottom: none;
+    overflow-y: scroll; /* 允许垂直滚动 */
+    overflow-x: hidden; /* 禁止水平滚动 */
+    -webkit-overflow-scrolling: touch; /* 支持触摸滚动 */
+    /* 滚动容器样式 */
+    scroll-snap-type: y mandatory; /* 强制垂直滚动对齐 */
+    scroll-behavior: smooth; /* 平滑滚动 */
 }
 
-.blue-overlay, .blue-overlay2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 50vw;
-    height: 100vh;
-    background: rgba(0, 168, 232, 0.5);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    pointer-events: none;
-    z-index: 0;
-    opacity: 1;
-    transition: all 3s ease 1s;
+.blue-overlay {
     transform: skewX(-20deg);
+    position: relative;
+    top: 150vw;
+    width: 30%;
+    height: 100%;
+    background: rgba(65, 182, 73, 0.5); /* 半透明蓝色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    z-index: 200;
+    opacity: 1;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 1s;
 }
 
 .blue-overlay2 {
-    right: 0;
     transform: skewX(20deg);
+    position: relative;
+    bottom: 150vw;
+    width: 30%;
+    height: 100%;
+    background: rgba(65, 182, 73, 0.5); /* 半透明蓝色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    z-index: 200;
+    opacity: 1;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
 }
 
 .white-overlay {
-    position: fixed;
-    top: 0;
-    left: 25vw;
-    width: 50vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.5);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    pointer-events: none;
-    z-index: 201;
-    opacity: 1;
-    transition: all 3s ease 0.5s;
     transform: skewX(-20deg);
+    position: relative;
+    right: 150vw;
+    width: 30%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7); /* 半透明蓝色 */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* 磨砂模糊效果 */
+    pointer-events: none; /* 默认不挡鼠标事件 */
+    z-index: 200;
+    opacity: 1;
+    display: inline-block;
+    float: left;
+    overflow: hidden; /* 防止内容溢出 */
+    transition-property: all;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    transition-delay: 0.5s;
 }
 
-/* 内容区居中上方 */
+.blue-overlay:hover{
+  background: rgba(255, 209, 0, 0.5);
+}
+
+.blue-overlay2:hover{
+  background: rgba(255, 209, 0, 0.5);
+}
+
+.white-overlay:hover{
+  background: rgba(65, 182, 73, 0.5);
+}
+
+.blue-overlay.active {
+    transform: skewX(-30deg);
+    top: 0; /* 激活时滑动到屏幕右侧 */
+}
+.blue-overlay2.active {
+    transform: skewX(30deg);
+    bottom: 0; /* 激活时滑动到屏幕右侧 */
+}
+.white-overlay.active {
+    transform: skewX(-30deg);
+    right: 0; /* 激活时滑动到屏幕右侧 */
+}
+
+.hero.active {
+    background-color: var(--igem-yellow); /* 激活时背景色变为蓝色 */
+}
+
+.logo {
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  top: 10vh;
+}
+
 .hero-content {
-    position: relative;
-    margin-top: 10vh;
-    margin-bottom: 32px;
-    z-index: 3;
-    background: none;
+    z-index: 988;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5em;
-    padding: 0;
-    width: 100%;
-    text-align: center;
 }
 
 .word1 {
     font-size: 3em;
     margin: 10px;
-    color: #005070;
+    color: var(--igem-yellow);
     transition-property: all;
     transition-duration: 3s;
     transition-timing-function: ease;
@@ -293,7 +356,7 @@ header a{
 .word2 {
     font-size: 3em;
     margin: 10px;
-    color: #005070;
+    color: var(--igem-yellow);
     transition-property: all;
     transition-duration: 3s;
     transition-timing-function: ease;
@@ -303,7 +366,7 @@ header a{
 .word3 {
     font-size: 4em;
     margin: 10px;
-    color: #005070;
+    color: var(--igem-yellow);
     transition-property: all;
     transition-duration: 3s;
     transition-timing-function: ease;
@@ -311,15 +374,15 @@ header a{
 }
 
 .word1.active {
-    color: #001f3f;
+    color: var(--igem-dark-green);
 }
 
 .word2.active {
-    color: #001f3f;
+    color: var(--igem-dark-green);
 }
 
 .word3.active {
-    color: #001f3f;
+    color: var(--igem-dark-green);
 }
 
 .about {
@@ -338,12 +401,12 @@ header a{
     padding: 16px 40px;
     font-size: 1.25em;
     font-weight: 600;
-    color: #fff;
+    color: var(--igem-white);
     text-align: center;
     text-decoration: none;
     border: none;
     border-radius: 22px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(0,168,232,0.18) 100%);
+    background: linear-gradient(135deg, rgba(255,209,0,0.22) 0%, rgba(65,182,73,0.18) 100%);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 8px 0 rgba(0,168,232,0.10);
     -webkit-backdrop-filter: blur(22px) saturate(180%);
     backdrop-filter: blur(22px) saturate(180%);
@@ -385,6 +448,7 @@ header a{
     pointer-events: none;
     transition: opacity 0.3s;
     box-shadow: 0 2px 8px 0 rgba(255,255,255,0.12);
+    animation: glassHighlight 3.5s cubic-bezier(.4,.2,.6,1) infinite;
 }
 
 .hero a .liquid {
@@ -413,6 +477,7 @@ header a{
     opacity: 0.85;
     mix-blend-mode: lighten;
     filter: blur(1.5px);
+    animation: glassHighlightMove 2.8s linear infinite;
     transition: opacity 0.3s;
 }
 
@@ -467,89 +532,52 @@ header a{
 }
 
 .hero a:hover {
-    background: linear-gradient(135deg, rgba(255,255,255,0.32) 0%, rgba(0,168,232,0.22) 100%);
-    border: 1.5px solid #00a8e8;
-    color: #005070;
+    background: linear-gradient(135deg, rgba(255,209,0,0.32) 0%, rgba(65,182,73,0.22) 100%);
+    border: 1.5px solid var(--igem-yellow);
+    color: var(--igem-green);
     box-shadow: 0 12px 36px 0 rgba(0,168,232,0.18), 0 2px 12px 0 rgba(0,168,232,0.12);
     filter: brightness(1.09);
 }
 
 .hero a:active {
-    background: linear-gradient(135deg, rgba(0, 168, 232, 0.18) 0%, rgba(255,255,255,0.12) 100%);
-    color: #fff;
-    border: 1.5px solid #005070;
+    background: linear-gradient(135deg, rgba(65, 182, 73, 0.18) 0%, rgba(255,209,0,0.12) 100%);
+    color: var(--igem-white);
+    border: 1.5px solid var(--igem-dark-green);
     filter: brightness(0.97);
 }
 
-/* 现代半透明按钮样式 */
-.hero-btn-group {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin: 64px 0 0 0;
-    padding: 0 8vw;
-    box-sizing: border-box;
-    min-height: 80px;
-    position: relative;
-    z-index: 3;
+#fullscreen-nav ul, #fullscreen-nav li, #fullscreen-nav a, #fullscreen-nav button {
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(26,122,46,0.18), 0 1px 0 #1a7a2e;
+    z-index: 4;
+}
+#fullscreen-nav a:hover {
+    color: var(--igem-yellow) !important;
+}
+#close-btn {
+    color: #fff !important;
+    z-index: 5;
+    text-shadow: 0 2px 8px rgba(26,122,46,0.18), 0 1px 0 #1a7a2e;
+}
+#close-btn.active {
+    color: var(--igem-yellow) !important;
+}
+#fullscreen-nav .highlight {
+    opacity: 0.35;
+    z-index: 1;
 }
 
-.modern-btn {
-    min-width: 140px;
-    max-width: 320px;
-    width: 40%;
-    padding: 18px 0;
-    font-size: 1.15em;
-    font-weight: 600;
-    color: #005070;
-    background: rgba(255,255,255,0.22);
-    border: 1.5px solid rgba(0,168,232,0.18);
-    border-radius: 22px;
-    box-shadow: 0 4px 18px 0 rgba(0,168,232,0.10);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    backdrop-filter: blur(14px) saturate(160%);
-    letter-spacing: 1.1px;
-    text-align: center;
-    text-decoration: none;
-    transition: background 0.3s, color 0.3s, box-shadow 0.3s, border 0.3s, filter 0.2s, opacity 0.5s;
-    opacity: 0.88;
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
-    margin: 0;
-    flex-shrink: 0;
-    z-index: 10;
-}
-
-.modern-btn.left-btn {
-    margin-right: auto;
-}
-.modern-btn.right-btn {
-    margin-left: auto;
-}
-
-@media (max-width: 900px) {
-  .hero-btn-group {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 2vw;
-    gap: 18px;
-    margin-top: 32px;
-  }
-  .modern-btn {
-    max-width: 100%;
-    width: 100%;
-    margin: 8px 0;
-  }
-  .modern-btn.left-btn, .modern-btn.right-btn {
-    margin: 8px 0;
-  }
-}
-
-.hero-content {
-    position: static;
-    margin-top: 8vh;
-    margin-bottom: 32px;
-    z-index: 2;
+.nav-blur-bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 340px;
+    border-radius: 40px;
+    background: rgba(26,122,46,0.18);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+    z-index: 1;
+    pointer-events: none;
 }
