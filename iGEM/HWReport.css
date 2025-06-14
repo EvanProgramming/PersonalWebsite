@@ -1,0 +1,235 @@
+/* hardwareReports 页面专用样式，配合 iGEM.css 现代半透明风格 */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#menu-btn {
+    height: 0px;
+    color: white;
+}
+
+.subtitle {
+  font-size: 1em;
+  width: 30vw;
+  position: relative;
+  color: var(--igem-yellow);
+  margin: 10px;
+  font-weight: 400;
+  transition: all 3s ease 5s;
+}
+
+#timeline {
+    text-align: center;
+    width: 100vw;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 3em 0 2em 0;
+    background: #ffffff26;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    scroll-snap-align: start;
+    color: #ffffff;
+}
+
+.timeline-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.timeline-track {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+  align-items: flex-start;
+  min-width: 800px;
+  padding: 1em 2em;
+}
+
+.timeline-item {
+  background: #9C9C9C81;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(0,168,232,0.08);
+  padding: 1em 2em;
+  min-width: 160px;
+  text-align: center;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.timeline-item:hover {
+  background: rgba(0, 255, 76, 0.13);
+}
+
+.timeline-dot {
+  width: 18px;
+  height: 18px;
+  background: var(--igem-yellow);
+  border-radius: 50%;
+  margin: 0 auto 0.5em auto;
+  box-shadow: 0 0 8px 2px rgba(0, 255, 38, 0.605);
+  border: 2px solid var(--igem-green);
+}
+
+.timeline-date {
+  font-weight: bold;
+  color: var(--igem-dark-green);
+  margin-bottom: 0.3em;
+}
+
+.timeline-desc {
+  color: var(--igem-green);
+  font-size: 1em;
+}
+
+#reports {
+  width: 100vw;
+  min-height: 40vh;
+  padding: 2em 0 4em 0;
+  background: rgba(255,255,255,0.18);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  scroll-snap-align: start;
+  color: #ffffff;
+}
+
+.report-list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.reports-title {
+  color: var(--igem-dark-green);
+  margin-bottom: 1em;
+}
+
+.report-card {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(0,168,232,0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0,168,232,0.08);
+  padding: 1.5em 2em;
+  margin-bottom: 1.5em;
+  transition: background 0.3s, box-shadow 0.3s, color 0.2s;
+}
+
+.report-card:hover {
+  background: rgba(0, 255, 76, 0.13);
+  box-shadow: 0 4px 18px 0 rgba(0,168,232,0.18);
+  color: var(--igem-green);
+  text-decoration: none;
+}
+
+.report-card h3, .report-card p {
+  pointer-events: none;
+}
+
+/* 让 overlay 延伸到整个主内容区，并位于 timeline/reports 下方 */
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 120vh;
+  overflow: hidden;
+  z-index: 100;
+  background-color: var(--igem-green);
+  transition-property: all;
+  transition-duration: 5s;
+  transition-timing-function: ease;
+  transition-delay: 4s;
+  margin-top: 0 !important;
+  color: #ffffff;
+}
+
+/* 让 overlay 绝对定位，延伸到 hero+timeline+reports 区域 */
+.blue-overlay,
+.blue-overlay2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30%;
+  z-index: 10;
+  pointer-events: none;
+  display: block;
+}
+.blue-overlay2 {
+  left: auto;
+  right: 0;
+}
+
+/* 让 timeline 和 reports 区域背景半透明，内容浮在 overlay 上方 */
+#timeline, #reports {
+  position: static;
+  z-index: auto;
+}
+
+/* 保证 hero-content 在 overlay 上方 */
+.hero-content {
+  position: relative;
+  z-index: 30;
+}
+
+/* 保证 timeline-container 和 report-list 内容在 overlay 上方 */
+.timeline-container, .report-list {
+  position: static;
+  z-index: auto;
+}
+
+#scroll-progress-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 7px;
+  background: linear-gradient(90deg, #00a86b 0%, #ffd100 60%, #00a8e8 100%);
+  z-index: 9999;
+  transition: width 0.2s cubic-bezier(.4,.2,.6,1);
+  box-shadow: 0 0 12px 2px rgba(0,168,232,0.25);
+  border-radius: 0 8px 8px 0;
+  opacity: 0.95;
+}
+
+header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body > header {
+  position: static; /* 还原为默认流式布局 */
+  top: auto;
+  left: auto;
+  width: 100vw;
+  z-index: 999;
+  background: transparent;
+}
+
+main {
+    margin-top: 0 !important; /* 取消 main 的顶部外边距 */
+    overflow: hidden; /* 确保内容不溢出 */
+    padding: 0; /* 清除默认内边距 */
+    width: 100vw; /* 确保 main 占满全宽 */
+    height: auto; /* 让 main 高度自适应内容 */
+    position: relative; /* 确保 main 在正常文档流中 */
+    background-color: black; /* 设置背景颜色为黑色 */
+}
+
+#close-btn {
+  color: #fff !important;
+}
+#close-btn.active {
+  color: #fff !important;
+}
+
+@media (max-width: 700px) {
+  .blue-overlay, .blue-overlay2 {
+    width: 50%;
+  }
+}

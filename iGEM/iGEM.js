@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.getElementById('close-btn');
   const fullscreenNav = document.getElementById('fullscreen-nav');
   const overlay = document.getElementById('overlay');
-  const navlink = document.getElementById('nav-link');
+  // 修改为 class 选择器，支持多个 nav-link
+  const navlinks = document.querySelectorAll('.nav-link');
   
 
   // Add active class to overlays on page load
@@ -26,14 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     fullscreenNav.classList.add('active');
     overlay.classList.add('active');
     closeBtn.classList.add('active');
-    navlink.classList.add('active');
+    navlinks.forEach(link => link.classList.add('active'));
   });
 
   closeBtn.addEventListener('click', () => {
     fullscreenNav.classList.remove('active');
     overlay.classList.remove('active');
     closeBtn.classList.remove('active');
-    navlink.classList.remove('active');
+    navlinks.forEach(link => link.classList.remove('active'));
   });
 
   // 可选：点击遮罩也关闭导航
@@ -92,4 +93,16 @@ document.addEventListener('DOMContentLoaded', () => {
       highlight.style.background = '';
     });
   });
+
+  // 页面滚动进度条
+  const progressBar = document.getElementById('scroll-progress-bar');
+  function updateScrollProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = percent + '%';
+  }
+  window.addEventListener('scroll', updateScrollProgress);
+  window.addEventListener('resize', updateScrollProgress);
+  updateScrollProgress();
 });
