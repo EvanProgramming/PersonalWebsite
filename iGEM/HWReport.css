@@ -335,33 +335,108 @@ main {
     font-size: 1.13em;
     line-height: 1.85;
     letter-spacing: 0.01em;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, transform 0.2s cubic-bezier(.25,.8,.25,1);
+    will-change: transform;
+    position: relative;
+    perspective: 900px;
+    --rotateX: 0deg;
+    --rotateY: 0deg;
+    transform: perspective(900px) rotateX(var(--rotateX)) rotateY(var(--rotateY));
 }
 
 .text-section-bg:hover {
-    box-shadow: 0 8px 48px #1db95444;
+    box-shadow: 0 6px 32px #1db95433, 0 2px 12px #fff2;
 }
 
 #toc {
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px #1db95422;
-    margin: 2em auto 2em auto;
+    border-radius: 22px;
+    box-shadow: 0 4px 32px #1db95422;
+    margin: 2.5em auto 2em auto;
     max-width: 600px;
-    padding: 2em 2em 1em 2em;
+    padding: 2.5em 2em 1.5em 2em;
+    text-align: center;
+    position: relative;
+    border: 2px solid #1db95433;
+    transition: box-shadow 0.3s;
 }
 
 #toc .reports-title {
     color: #1db954;
     text-align: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.7em;
+    font-size: 2.2em;
+    letter-spacing: 0.06em;
+    text-shadow: 0 2px 12px #1db95422;
 }
 
 #toc ol {
-    color: #1db954;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1em;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#toc ol li {
+    width: 90%;
+    background: linear-gradient(90deg, #eaffea 0%, #fff 100%);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #1db95411;
+    font-size: 1.13em;
     font-weight: bold;
-    font-size: 1.1em;
+    margin: 0 auto;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    padding: 0.7em 1.2em;
+    text-align: left;
+    position: relative;
+}
+
+#toc ol li a {
+    color: #1db954;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    transition: color 0.2s;
+}
+
+#toc ol li:hover, #toc ol li:focus-within {
+    background: linear-gradient(90deg, #d0ffd7 0%, #eaffea 100%);
+    box-shadow: 0 4px 18px #1db95433;
+}
+
+#toc ol li a:hover, #toc ol li a:focus {
+    color: #0e7c3a;
+    text-decoration: underline;
+}
+
+.hover-preview-img {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.22s cubic-bezier(.4,1.2,.4,1), transform 0.22s cubic-bezier(.4,1.2,.4,1);
+}
+.hover-preview-img.show {
+    opacity: 1;
+    transform: scale(1);
+}
+.hover-tip {
+    color: #eaffea;
+    background: rgba(255,255,255,0.13);
+    font-size: 1.04em;
+    margin-bottom: 0.7em;
+    padding: 0.45em 1.1em 0.45em 1.1em;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #1db95422;
+    display: inline-block;
+    font-weight: 400;
     letter-spacing: 0.01em;
+    border: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    text-shadow: 0 1px 4px #0002;
+    transition: background 0.2s, color 0.2s;
 }
 
 @media (max-width: 700px) {
@@ -372,4 +447,31 @@ main {
     #toc {
         padding: 1.2em 0.7em 0.7em 0.7em;
     }
+    #toc ol li {
+        font-size: 1em;
+        padding: 0.6em 0.7em;
+    }
+}
+
+/* 降低3D效果强度 */
+.decorated-future-text ul li {
+    background: rgba(255,255,255,0.10);
+    border-radius: 12px;
+    margin: 0.7em 0;
+    padding: 1em 1.2em;
+    box-shadow: 0 2px 8px #0001;
+    transition: 
+        background 0.3s,
+        box-shadow 0.3s,
+        color 0.2s,
+        transform 0.2s cubic-bezier(.25,.8,.25,1);
+    will-change: transform;
+    position: relative;
+    color: #fff;
+}
+.decorated-future-text ul li:hover {
+    background: rgba(157, 255, 186, 0.13);
+    color: #eaffea;
+    box-shadow: 0 8px 32px #1db95422, 0 1.5px 8px #0002;
+    z-index: 2;
 }
