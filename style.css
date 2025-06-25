@@ -52,7 +52,6 @@ main {
     transition-duration: 1.5s;
     transition-timing-function: ease;
     transition-delay: 0.5s;
-    overflow: hidden;
     z-index: 1000;
     isolation: isolate;
 }
@@ -466,4 +465,30 @@ header a{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 500;
+}
+
+.social-links a i {
+    color: #000;
+}
+
+footer {
+    width: 100vw;
+    height: 20vh;
+    background-color: #9C9C9C;
+    display: flex;
+    flex-direction: column; /* 让footer内容垂直排列 */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.social-links {
+    margin-bottom: 8px; /* 两行间距 */
+}
+
+html, body {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden; /* 禁止水平滚动，允许垂直滚动 */
+    overflow-y: auto;   /* 允许垂直滚动 */
 }
