@@ -1,0 +1,91 @@
+@keyframes dynamicExtBounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes dynamicShrBounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes dynamicExtend {
+    0% {
+        height: 20px;
+        width: 40vw;
+    }
+    100% {
+        height: 60vh;
+        width: 70vw;
+    }
+}
+
+@keyframes dynamicShrink {
+    0% {
+        height: 60vh;
+        width: 70vw;
+    }
+    100% {
+        height: 20px;
+        width: 40vw;
+    }
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dynamic-nav {
+    animation: dynamicShrink 0.3s ease, dynamicShrBounce 0.5s ease;
+    height: 20px;
+    width: 40vw;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 16px;
+
+}
+
+.dynamic-nav:hover {
+    animation: dynamicExtend 0.3s ease, dynamicExtBounce 0.5s ease;
+    height: 60vh;
+    width: 70vw;
+}
+
+.dynamic-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+.dynamic-nav li {
+    margin-right: 24px;
+}
+
+.dynamic-nav li:last-child {
+    margin-right: 0;
+}
