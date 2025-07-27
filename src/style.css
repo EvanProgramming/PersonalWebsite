@@ -24,10 +24,12 @@
 
 @keyframes dynamicExtend {
     0% {
+        filter: blur(2px);
         height: 20px;
         width: 40vw;
     }
     100% {
+        filter: blur(0px);
         height: 60vh;
         width: 70vw;
     }
@@ -35,10 +37,12 @@
 
 @keyframes dynamicShrink {
     0% {
+        filter: blur(0px);
         height: 60vh;
         width: 70vw;
     }
     100% {
+        filter: blur(2px);
         height: 20px;
         width: 40vw;
     }
@@ -46,7 +50,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-    
+    background-color: black;
 }
 
 header {
@@ -57,18 +61,20 @@ header {
 }
 
 .dynamic-nav {
+    position: fixed;
+    top: 10px;
     animation: dynamicShrink 0.3s ease, dynamicShrBounce 0.5s ease;
     height: 20px;
     width: 40vw;
     background-color: black;
     color: white;
-    border: 1px solid black;
+    border: 1px solid #9C9C9C;
     border-radius: 30px;
     padding: 16px;
 
 }
 
-.dynamic-nav:hover {
+.dynamic-nav:hover {;
     animation: dynamicExtend 0.3s ease, dynamicExtBounce 0.5s ease;
     height: 60vh;
     width: 70vw;
@@ -88,4 +94,17 @@ header {
 
 .dynamic-nav li:last-child {
     margin-right: 0;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+
+}
+
+.nav-link:hover {
+    color: #9C9C9C;
 }
