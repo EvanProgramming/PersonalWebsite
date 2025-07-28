@@ -79,4 +79,151 @@ function draw() {
 }
 draw();
 
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        document.querySelectorAll('.nav-link').forEach(other => {
+            if (other !== link) {
+                other.classList.add('blurred');
+            }
+        });
+    });
+    link.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.nav-link').forEach(other => {
+            other.classList.remove('blurred');
+        });
+    });
+});
+
+const lenis = new Lenis()
+function raf(time) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
+}
+requestAnimationFrame(raf)
+//document.querySelector('body').appendChild(SplashCursor())
+
+// 动态导航动画控制
+const dynamicNav = document.querySelector('.dynamic-nav');
+if (dynamicNav) {
+    dynamicNav.addEventListener('mouseenter', () => {
+        dynamicNav.classList.remove('shrink-anim');
+    });
+    dynamicNav.addEventListener('mouseleave', () => {
+        dynamicNav.classList.add('shrink-anim');
+        // 动画结束后移除类，避免反复触发
+        dynamicNav.addEventListener('animationend', function handler() {
+            dynamicNav.classList.remove('shrink-anim');
+            dynamicNav.removeEventListener('animationend', handler);
+        });
+    });
+}
+
+
 // ...existing code...
+
+
+//Magnetic yoyo ball
+// JIEJOE produce
+    // b站主页：https://space.bilibili.com/3546390319860710
+    const magnetic = {
+        container: document.querySelector(".container"),
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0,
+        lines: 12, // Adjusted for better visibility Origin: 10
+        rows: 12, // Adjusted for better visibility Origin: 10
+        balls: [],
+        mouse_radius: 100,
+        init() {
+            this.resize();
+            this.create_yoyo(15);
+            document.addEventListener("mousemove", (e) => {
+                this.move_balls(e.x, e.y);
+            })
+        },
+        resize() {
+            this.width = this.container.getBoundingClientRect().width;
+            this.height = this.container.getBoundingClientRect().height;
+            this.left = this.container.getBoundingClientRect().left;
+            this.top = this.container.getBoundingClientRect().top;
+        },
+        create_yoyo(radius) {
+            for (let r = 0; r <= this.rows; r++) {
+                for (let l = 0; l <= this.lines; l++) {
+                    let x = this.width / this.lines * l;
+                    let y = this.height / this.rows * r;
+                    const ball = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    ball.setAttribute("fill", "#00F0FF");
+                    ball.setAttribute("cx", x);
+                    ball.setAttribute("cy", y);
+                    ball.setAttribute("r", radius);
+                    const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    point.setAttribute("fill", "#f7f7f7");
+                    point.setAttribute("cx", x);
+                    point.setAttribute("cy", y);
+                    point.setAttribute("r", radius / 5);
+                    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                    line.setAttribute("x1", x);
+                    line.setAttribute("y1", y);
+                    line.setAttribute("x2", x);
+                    line.setAttribute("y2", y);
+                    this.container.appendChild(line);
+                    this.container.appendChild(point);
+                    this.container.appendChild(ball);
+                    ball.line = line;
+                    ball.ori_x = x;
+                    ball.ori_y = y;
+                    this.balls.push(ball);
+                };
+            };
+        },
+        move_balls(x, y) {
+            this.balls.forEach(ball => {
+                const mouse_x = x - this.left;
+                const mouse_y = y - this.top;
+                const dx = ball.ori_x - mouse_x;
+                const dy = ball.ori_y - mouse_y;
+                const distance = Math.sqrt(dx ** 2 + dy ** 2);
+                if (distance <= this.mouse_radius) {
+                    ball.move_x = mouse_x + dx / distance * this.mouse_radius;
+                    ball.move_y = mouse_y + dy / distance * this.mouse_radius;
+                    if (ball.animater) ball.animater.kill();
+                    ball.animater = gsap.timeline()
+                        .to(ball, {
+                            attr: {
+                                cx: ball.move_x,
+                                cy: ball.move_y,
+                            },
+                            duration: 0.5,
+                            ease: "power3.out",
+                        })
+                        .to(ball.line, {
+                            attr: {
+                                x2: ball.move_x,
+                                y2: ball.move_y,
+                            },
+                            duration: 0.5,
+                            ease: "power3.out",
+                        }, "<")
+                        .to(ball, {
+                            attr: {
+                                cx: ball.ori_x,
+                                cy: ball.ori_y,
+                            },
+                            duration: 1,
+                            ease: "power3.out",
+                        }, "<0.1")
+                        .to(ball.line, {
+                            attr: {
+                                x2: ball.ori_x,
+                                y2: ball.ori_y,
+                            },
+                            duration: 1,
+                            ease: "power3.out",
+                        }, "<");
+                }
+            });
+        }
+    };
+    magnetic.init();
