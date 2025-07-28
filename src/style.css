@@ -48,6 +48,28 @@
     }
 }
 
+.hero {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+.hero h1 {
+    color: white;
+    font-size: 4em;
+    position: static;
+    margin-left: 10%;
+    margin-top: 0;
+    margin-bottom: 0.2em;
+    text-decoration: underline;
+    text-decoration-color: #00F0FF;
+    text-decoration-thickness: 0.3em;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
     background-color: black;
@@ -60,10 +82,21 @@ header {
     justify-content: center;
 }
 
+.visuallyhidden {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+    clip-path: inset(0px 0px 99.9% 99.9%);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    padding: 0;
+    border: 0;
+}
+
 .dynamic-nav {
     position: fixed;
     top: 10px;
-    animation: dynamicShrink 0.3s ease, dynamicShrBounce 0.5s ease;
     height: 20px;
     width: 40vw;
     background-color: black;
@@ -71,14 +104,19 @@ header {
     border: 1px solid #9C9C9C;
     border-radius: 30px;
     padding: 16px;
-
+    z-index:10000;
 }
 
-.dynamic-nav:hover {;
+.dynamic-nav.shrink-anim {
+    animation: dynamicShrink 0.3s ease, dynamicShrBounce 0.5s ease;
+}
+
+.dynamic-nav:hover {
     animation: dynamicExtend 0.3s ease, dynamicExtBounce 0.5s ease;
     height: 60vh;
     width: 70vw;
 }
+
 
 .dynamic-nav ul {
     display: flex;
@@ -108,3 +146,9 @@ header {
 .nav-link:hover {
     color: #9C9C9C;
 }
+/* 悬停时其他按钮模糊效果 */
+.nav-link.blurred {
+    filter: blur(2px);
+    transition: filter 0.3s;
+}
+
