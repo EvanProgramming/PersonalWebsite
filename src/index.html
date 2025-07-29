@@ -32,10 +32,28 @@
                 <p>Scroll down to explore👇</p>
             </dev>
         </section>
+        <section class="about-leading">
+            <h2>ABOUT ME</h2>
+        </section>
+        <section class="about">
+            <p>I'M A DEVELOPER WHO LOVES <strong>PROGRAMMING</strong>, EXPLORING <strong>NEW TECHNOLOGIES</strong> AND CREATING <strong>INTERESTING PROJECTS</strong></p>
+            <canvas id="canvas" width="300" height="300"></canvas>
+            <script type="module">
+            import { DotLottie } from "<https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web/+esm>";
+
+            new DotLottie({
+                autoplay: true,
+                loop: true,
+                canvas: document.getElementById("canvas"),
+                src: "<https://lottie.host/embed/3e06f44b-4db7-40ee-80a1-1c70c0fab609/KaVoxD7Iry.lottie>", // replace with your .lottie or .json file URL
+            });
+            </script>
+        </section>
     </main>
     <footer>
         <!-- 页脚内容 -->
     </footer>
+    
 </body>
 
 <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.min.js"></script>

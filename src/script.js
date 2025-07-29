@@ -131,8 +131,8 @@ if (dynamicNav) {
         height: 0,
         left: 0,
         top: 0,
-        lines: 12, // Adjusted for better visibility Origin: 10
-        rows: 12, // Adjusted for better visibility Origin: 10
+        lines: 10, // Adjusted for better visibility Origin: 10
+        rows: 10, // Adjusted for better visibility Origin: 10
         balls: [],
         mouse_radius: 100,
         init() {
@@ -227,3 +227,15 @@ if (dynamicNav) {
         }
     };
     magnetic.init();
+
+
+
+//Lottie Animations
+import { DotLottie } from '@lottiefiles/dotlottie-web';
+
+const dotLottie = new DotLottie({
+    autoplay: true,
+    loop: true,
+    canvas: document.querySelector('#dotlottie-canvas'),
+    src: "<https://lottie.host/YOUR_ANIMATION_ID.lottie>", // replace with your .lottie or .json file URL
+});
