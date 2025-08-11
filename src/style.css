@@ -25,12 +25,10 @@
 @keyframes dynamicExtend {
     0% {
         filter: blur(2px);
-        height: 20px;
         width: 40vw;
     }
     100% {
         filter: blur(0px);
-        height: 60vh;
         width: 70vw;
     }
 }
@@ -38,12 +36,10 @@
 @keyframes dynamicShrink {
     0% {
         filter: blur(0px);
-        height: 60vh;
         width: 70vw;
     }
     100% {
         filter: blur(2px);
-        height: 20px;
         width: 40vw;
     }
 }
@@ -132,7 +128,6 @@ header {
 
 .dynamic-nav:hover {
     animation: dynamicExtend 0.3s ease, dynamicExtBounce 0.5s ease;
-    height: 60vh;
     width: 70vw;
 }
 
