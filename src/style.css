@@ -202,24 +202,28 @@ header {
 .about-leading-flex {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin: 0 auto;
 }
 
 #lottie-animation3 {
     width: 100px;
     height: 100px;
-    margin-right: 32px;
+    margin-right: 8px;
 }
 
 .about-leading-flex h2 {
     margin: 0;
+    padding: 0;
+    width: auto;
+    text-align: center;
 }
 
 .about {
     width: 100%;
-    height: 100vh;
+    height: auto;
     text-align: center;
-    
+    padding-bottom: 15vh;
 }
 
 .about p {
@@ -264,7 +268,7 @@ header {
 }
 
 .blob {
-    width: max(120px, 14vw);
+    width: max(160px, 18vw);
     aspect-ratio: 1;
     border-radius: 50%;
     position: absolute;
@@ -302,8 +306,10 @@ header {
 
 .about-leading h2 {
     color: white;
-    font-size: clamp(24px, 6vw, 64px);
-    max-width: 400px;
+    font-size: clamp(48px, 12vw, 128px);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
@@ -337,4 +343,160 @@ header {
 
 .about-link:active {
     background-color: #00cad8;
+}
+
+.projects-leading {
+    width: 100%;
+    height: 60vh;
+    text-align: center;
+    margin-top: 25vh;
+}
+
+.skill-card {
+    width: 80%;
+    height: 20vh;
+    background-color: rgb(0, 240, 255, 0.3);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.skill-card {
+    width: 80%;
+    height: 20vh;
+    background-color: rgb(0, 240, 255, 0.3);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    color: white;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.skill-card h2 {
+    margin-left: 30px;
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.skill-card:hover {
+    background-color: rgb(0, 240, 255, 0.5);
+    text-shadow: 0 0 8px #00F0FF;
+}
+
+/* lottie 动画容器样式 */
+#lottie-skill {
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+}
+
+#lottie-3D-printer {
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+}
+
+.robotics-icon {
+    width: 150px;
+    height: auto;
+    margin-right: 30px;
+}
+
+.project-leading {
+    width: 100%;
+    height: auto;
+}
+
+.projects-leading h2 {
+    color: #00F0FF;
+    font-size: clamp(48px, 12vw, 128px);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-color: #f7f7f7;
+    text-decoration-thickness: 0.2em;
+}
+
+.project {
+    width: 100%;
+    height:auto;
+    display: flex;
+}
+
+.project-title {
+    color: white;
+    font-size: 3em;
+    position: relative;
+    left: 10%;
+    top: 0px;
+}
+
+.project-card {
+    width: 80%;
+    height: 20vh;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border: 2px solid #9C9C9C;
+    border-radius: 50px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    color: white;
+    cursor: pointer;
+}
+
+.project-card h3 {
+    font-size: 1.5em;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+
+.project-card:hover {
+    background-color: #f7f7f7;
+    color: #171717;
+    }
+    .project-card:hover .project-link {
+        color: #171717;
+    }
+
+.project-card p {
+    margin-bottom: 10px;
+}
+
+.project-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition-property: text-decoration, color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+    text-decoration-color: #00F0FF;
+    text-decoration-thickness: 0.3em;
 }

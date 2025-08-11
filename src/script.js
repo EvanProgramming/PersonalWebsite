@@ -1,3 +1,25 @@
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('lottie-skill')) {
+        lottie.loadAnimation({
+            container: document.getElementById('lottie-skill'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '../Lottie/Coding-Computer.json' // 动画文件路径
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('lottie-3D-printer')) {
+        lottie.loadAnimation({
+            container: document.getElementById('lottie-3D-printer'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '../Lottie/3DPrinter.json' // 动画文件路径
+        });
+    }
+});
 // Lottie 官方推荐的初始化方式
 document.addEventListener('DOMContentLoaded', function() {
   lottie.loadAnimation({
@@ -324,3 +346,23 @@ function initBlobs() {
 }
 
 initBlobs()
+
+//GSAP Scroll Trigger for skills section
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".skill-card").forEach((card, i) => {
+  gsap.fromTo(card, 
+    { opacity: 0, y: 80 }, 
+    { 
+      opacity: 1, 
+      y: 0, 
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: card,
+        start: "top 90%",
+        end: "top 60%",
+        scrub: 0.8, // 惯性数值，越大惯性越明显
+      }
+    }
+  );
+});
