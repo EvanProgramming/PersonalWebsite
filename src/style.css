@@ -74,6 +74,17 @@ body {
     overflow: auto;
 }
 
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #00F0FF, #00ffa2);
+    z-index: 10001;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+}
+
 body::selection {
     background-color: #00F0FF;
     color: #9C9C9C;
@@ -460,6 +471,10 @@ header {
     margin: 30px auto;
     color: white;
     cursor: pointer;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transition: transform 160ms ease, background-color 0.5s, color 0.5s, box-shadow 0.5s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .project-card h3 {

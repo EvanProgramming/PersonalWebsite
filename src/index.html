@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <div id="scroll-progress" aria-hidden="true"></div>
     <canvas id="bg-canvas"></canvas>
     <header>
         <!-- 头部内容 -->
@@ -16,7 +17,7 @@
         <nav class="dynamic-nav">
             <ul>
                 <li><a class="nav-link" href="#">Home</a></li>
-                <li><a class="nav-link" href="comingSoon.html">About</a></li>
+                <li><a class="nav-link" href="./about/about.html">About</a></li>
                 <li><a class="nav-link" href="comingSoon.html">Projects</a></li>
                 <li><a class="nav-link" href="comingSoon.html">Blog</a></li>
                 <li><a class="nav-link" href="comingSoon.html">Cloud</a></li>
@@ -122,13 +123,89 @@
             <a href="mailto:3457178006@qq.com" class="contact-link">3457178006@qq.com</a>
         </p>
         <p>Projects on <a href="https://github.com/EvanProgramming" class="contact-link">Github</a></p>
-        <a href="https://beian.miit.gov.cn/" target="_blank" class="contact-link">粤ICP备2025369844号-1</a>
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="contact-link">粤ICP备2025369844号-1</a>
     </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
 </body>
 
 <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script>
+// Inline enhancements kept separate to avoid coupling with existing script.js
+(function(){
+  // Scroll progress bar
+  var progressEl = document.getElementById('scroll-progress');
+  function updateProgress(){
+    var scrollTop = window.scrollY || window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressEl.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  // Hero parallax (mouse-based)
+  var hero = document.querySelector('.hero');
+  if (hero) {
+    var heroTitles = hero.querySelectorAll('h1');
+    hero.addEventListener('mousemove', function(e){
+      var rect = hero.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width - 0.5;
+      var relY = (e.clientY - rect.top) / rect.height - 0.5;
+      heroTitles.forEach(function(el, idx){
+        var depth = (idx + 1) * 6; // subtle layered shift
+        el.style.transform = 'translate3d(' + (relX * depth) + 'px,' + (relY * depth) + 'px,0)';
+      });
+    });
+    hero.addEventListener('mouseleave', function(){
+      heroTitles.forEach(function(el){ el.style.transform = 'translate3d(0,0,0)'; });
+    });
+  }
+
+  // Smooth in-page anchor scroll (prefer Lenis if available)
+  var anchorLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
+  if (anchorLinks.length) {
+    anchorLinks.forEach(function(a){
+      a.addEventListener('click', function(e){
+        var targetId = a.getAttribute('href');
+        if (!targetId || targetId === '#' || targetId.length < 2) return; // ignore
+        var target = document.querySelector(targetId);
+        if (!target) return;
+        e.preventDefault();
+        if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+          window.lenis.scrollTo(target, { offset: -40 });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
+
+  // 3D hover tilt for project cards
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.project-card'));
+  cards.forEach(function(card){
+    var maxRotate = 6; // degrees
+    var resetTimeout;
+    function handleMove(e){
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width;
+      var y = (e.clientY - rect.top) / rect.height;
+      var rotY = (x - 0.5) * (maxRotate * 2);
+      var rotX = (0.5 - y) * (maxRotate * 2);
+      card.style.transform = 'perspective(800px) rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
+    }
+    function handleLeave(){
+      clearTimeout(resetTimeout);
+      resetTimeout = setTimeout(function(){
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+      }, 40);
+    }
+    card.addEventListener('mousemove', handleMove);
+    card.addEventListener('mouseleave', handleLeave);
+  });
+})();
+</script>
 <script src="script.js"></script>
 <script src="gsap.js"></script>
 
