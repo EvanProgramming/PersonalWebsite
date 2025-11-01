@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Photo Gallery - Evan Gong's Photography Collection">
+    <title>Gallery - Evan Gong</title>
+    <link rel="stylesheet" href="gallery.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+</head>
+<body>
+    <div id="scroll-progress" aria-hidden="true"></div>
+    
+    <header>
+        <h1 class="visuallyhidden">Evan Gong - Gallery</h1>
+        <nav class="dynamic-nav">
+            <ul>
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../about/about.html">About</a></li>
+                <li><a class="nav-link" href="../comingSoon.html">Projects</a></li>
+                <li><a class="nav-link" href="../blog/blog.html">Blog</a></li>
+                <li><a class="nav-link" href="../comingSoon.html">Awards</a></li>
+                <li><a class="nav-link" href="../iGEM/iGEM.html">iGEM</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="gallery-hero">
+            <h1>PHOTO GALLERY</h1>
+            <p class="subtitle">CLICK TO EXPLORE</p>
+        </section>
+
+        <section class="gallery-container" id="galleryContainer">
+            <div class="stack-hint" id="stackHint">
+                <div class="hint-text">CLICK ME</div>
+                <div class="hint-arrow">↓</div>
+            </div>
+            
+            <div class="photo-stack" id="photoStack">
+                <!-- Photos will be dynamically generated -->
+            </div>
+
+            <div class="photo-grid" id="photoGrid">
+                <!-- Photos will be moved here after expansion -->
+            </div>
+        </section>
+
+        <!-- Lightbox for full-size view -->
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-close" id="lightboxClose">✕</div>
+            <img src="" alt="Full size photo" class="lightbox-image" id="lightboxImage">
+            <div class="lightbox-nav">
+                <button class="lightbox-prev" id="lightboxPrev">←</button>
+                <button class="lightbox-next" id="lightboxNext">→</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <h1>CONTACT ME</h1>
+        <p>Feel free to reach out via email at 
+            <a href="mailto:3457178006@qq.com" class="contact-link">3457178006@qq.com</a>
+        </p>
+        <p>Projects on <a href="https://github.com/EvanProgramming" class="contact-link">Github</a></p>
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="contact-link">粤ICP备2025369844号-1</a>
+    </footer>
+
+    <script src="gallery.js"></script>
+</body>
+</html>
