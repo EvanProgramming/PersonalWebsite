@@ -456,6 +456,27 @@ footer p {
 }
 
 @media (max-width: 480px) {
+    .dynamic-nav {
+        width: 90vw;
+    }
+    
+    .dynamic-nav:hover {
+        width: 95vw;
+    }
+    
+    .dynamic-nav ul {
+        flex-wrap: wrap;
+        gap: 8px 10px;
+    }
+    
+    .dynamic-nav li {
+        margin-right: 0;
+    }
+    
+    .nav-link {
+        font-size: 0.9em;
+    }
+    
     .photo-grid {
         grid-template-columns: 1fr;
         padding: 20px 10px;
@@ -465,5 +486,11 @@ footer p {
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
+    }
+    
+    .lightbox-close {
+        top: 15px;
+        right: 15px;
+        font-size: 36px;
     }
 }

@@ -24,8 +24,10 @@
 
         .container {
             position: absolute;
-            width: 50rem; /* Adjusted for better visibility Origin: 50rem*/
-            height: 50rem;  /* Adjusted for better visibility Origin: 50rem*/
+            width: min(50rem, 95vmin);
+            height: min(50rem, 95vmin);
+            max-width: 100vw;
+            max-height: 100vmin;
             overflow: visible;
         }
 

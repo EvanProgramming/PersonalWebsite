@@ -244,6 +244,25 @@ footer {
     
     .dynamic-nav {
         width: 90vw;
+        min-width: 0;
+    }
+    
+    .dynamic-nav:hover {
+        width: 95vw;
+    }
+    
+    .dynamic-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 14px;
+    }
+    
+    .dynamic-nav li {
+        margin-right: 0;
+    }
+    
+    .nav-link {
+        font-size: 0.95em;
     }
     
     .social-links {

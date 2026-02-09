@@ -536,3 +536,48 @@ header a{
     border: 1.5px solid #005070;
     filter: brightness(0.97);
 }
+
+/* Responsive: fit all screen sizes */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        gap: 0.25em;
+    }
+    .word1, .word2 {
+        font-size: 2em;
+    }
+    .word3 {
+        font-size: 2.5em;
+    }
+    .hero a {
+        min-width: 120px;
+        padding: 12px 28px;
+        font-size: 1.1em;
+    }
+    #menu-btn {
+        left: 16px;
+        top: 16px;
+        font-size: 1.6em;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    #close-btn {
+        right: 20px;
+        top: 16px;
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .word1, .word2 {
+        font-size: 1.5em;
+    }
+    .word3 {
+        font-size: 2em;
+    }
+    .hero a {
+        min-width: 100px;
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

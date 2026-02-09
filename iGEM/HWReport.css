@@ -451,6 +451,20 @@ main {
         font-size: 1em;
         padding: 0.6em 0.7em;
     }
+    .subtitle {
+        width: 85vw;
+    }
+    .timeline-track {
+        min-width: 520px;
+        gap: 1.5em;
+        padding: 1em 0.75em;
+    }
+    .timeline-item {
+        min-width: 120px;
+    }
+    .cover-image {
+        max-width: 95vw;
+    }
 }
 
 /* 降低3D效果强度 */

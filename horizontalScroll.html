@@ -27,7 +27,9 @@
 
         body {
             width: 100%;
+            min-width: 100%;
             background-color: #171717;
+            overflow-x: hidden;
         }
 
         .empty {
@@ -68,6 +70,20 @@
             font-size: 5rem;
             color: #171717;
             flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .empty {
+                height: 40rem;
+                margin: 5rem 0;
+                font-size: 3rem;
+            }
+            .cardsbox_card {
+                width: 40rem;
+                height: 30rem;
+                margin-right: 30rem;
+                font-size: 3rem;
+            }
         }
     </style>
 </head>

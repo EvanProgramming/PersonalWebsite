@@ -550,3 +550,123 @@ footer h1{
     text-decoration-color: #00F0FF;
     text-decoration-thickness: 0.1em;
 }
+
+/* ========== Responsive: fit all screen sizes ========== */
+@media (max-width: 1024px) {
+    .container {
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(50rem, 90vw);
+        height: min(50rem, 90vw);
+    }
+    .project-title {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .dynamic-nav {
+        width: 90vw;
+        min-width: 0;
+    }
+    .dynamic-nav:hover {
+        width: 95vw;
+    }
+    .dynamic-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 16px;
+    }
+    .dynamic-nav li {
+        margin-right: 0;
+    }
+    .hero h1 {
+        font-size: clamp(2rem, 8vw, 4em);
+        margin-left: 5%;
+    }
+    .scrollGuide p {
+        left: 5%;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+    .about-leading {
+        margin-top: 15vh;
+        height: 50vh;
+    }
+    .about-leading h2,
+    .projects-leading h2 {
+        font-size: clamp(32px, 10vw, 64px);
+    }
+    .skill-card {
+        width: 92%;
+        flex-direction: column;
+        height: auto;
+        min-height: 18vh;
+        padding: 20px;
+        gap: 12px;
+    }
+    .skill-card h2 {
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 1.3em;
+        text-align: center;
+    }
+    #lottie-skill,
+    #lottie-3D-printer,
+    .robotics-icon {
+        margin-right: 0;
+        margin-left: 0;
+        width: 80px;
+        height: 80px;
+    }
+    .robotics-icon {
+        width: 80px;
+    }
+    .projects-leading {
+        margin-top: 15vh;
+        height: 50vh;
+    }
+    .project-title {
+        left: 5%;
+        font-size: 1.8em;
+    }
+    .project-card {
+        width: 92%;
+        flex-direction: column;
+        height: auto;
+        min-height: 18vh;
+        padding: 24px;
+        gap: 12px;
+        text-align: center;
+    }
+    .project-card h3 {
+        font-size: 1.3em;
+    }
+    .project-card p {
+        margin-bottom: 8px;
+    }
+    footer h1 {
+        font-size: clamp(2rem, 10vw, 4em);
+    }
+    footer {
+        height: auto;
+        min-height: 30vh;
+        padding: 40px 20px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: clamp(1.5rem, 7vw, 2.5rem);
+    }
+    .about-link {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+    .skill-card,
+    .project-card {
+        width: 95%;
+    }
+    .project-title {
+        font-size: 1.5em;
+    }
+}
