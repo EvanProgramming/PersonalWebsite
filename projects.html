@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects Showcase — Evan Gong's portfolio of development and design work.">
+    <title>Projects — Evan Gong</title>
+    <link rel="stylesheet" href="projects.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
+
+    <header>
+        <h1 class="visuallyhidden">Projects — Evan Gong</h1>
+        <nav class="dynamic-nav">
+            <ul>
+                <li><a class="nav-link" href="index.html">Home</a></li>
+                <li><a class="nav-link" href="about/about.html">About</a></li>
+                <li><a class="nav-link nav-link--active" href="projects.html">Projects</a></li>
+                <li><a class="nav-link" href="blog/blog.html">Blog</a></li>
+                <li><a class="nav-link" href="comingSoon.html">Awards</a></li>
+                <li><a class="nav-link" href="gallery/gallery.html">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="projects-main">
+        <ul class="projects-list" role="list">
+            <li class="project-row" data-image="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop">
+                <div class="project-row-inner">
+                    <span class="project-title" data-text="NEURAL NETWORK">NEURAL NETWORK</span>
+                    <span class="project-meta">2024 · AI / PYTHON</span>
+                </div>
+            </li>
+            <li class="project-row" data-image="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop">
+                <div class="project-row-inner">
+                    <span class="project-title" data-text="ANTI-FIRE DRONE">ANTI-FIRE DRONE</span>
+                    <span class="project-meta">2024 · ROBOTICS / C++</span>
+                </div>
+            </li>
+            <li class="project-row" data-image="https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&h=400&fit=crop">
+                <div class="project-row-inner">
+                    <span class="project-title" data-text="IGEM HARDWARE">IGEM HARDWARE</span>
+                    <span class="project-meta">2024 · SYNTHETIC BIOLOGY</span>
+                </div>
+            </li>
+            <li class="project-row" data-image="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop">
+                <div class="project-row-inner">
+                    <span class="project-title" data-text="PERSONAL WEBSITE">PERSONAL WEBSITE</span>
+                    <span class="project-meta">2025 · WEB / FRONTEND</span>
+                </div>
+            </li>
+            <li class="project-row" data-image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop">
+                <div class="project-row-inner">
+                    <span class="project-title" data-text="CLOUD PLATFORM">CLOUD PLATFORM</span>
+                    <span class="project-meta">2025 · FULL-STACK</span>
+                </div>
+            </li>
+        </ul>
+
+        <div class="project-preview" id="project-preview" aria-hidden="true">
+            <div class="project-preview-inner">
+                <img src="" alt="" id="project-preview-img" />
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="projects.js"></script>
+</body>
+</html>

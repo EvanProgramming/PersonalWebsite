@@ -1,0 +1,330 @@
+/* ========== Projects Showcase — Cyberpunk / Brutalist ========== */
+:root {
+    --bg: #000000;
+    --text: #FFFFFF;
+    --meta: #9c9c9c;
+    --accent: #00F0FF;
+    --border: #333333;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        cursor: auto;
+    }
+}
+
+body::selection {
+    background-color: var(--accent);
+    color: var(--meta);
+}
+
+/* ---------- Noise overlay ---------- */
+.noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Scroll progress (match main site) ---------- */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #00ffa2);
+    z-index: 10001;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+}
+
+/* ---------- Custom cursor ---------- */
+.cursor-follower {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10002;
+    left: 0;
+    top: 0;
+    margin-left: -16px;
+    margin-top: -16px;
+    mix-blend-mode: difference;
+    transition: width 0.2s ease-out, height 0.2s ease-out, border-width 0.2s ease-out, margin 0.2s ease-out;
+}
+
+.cursor-follower.cursor-follower--hover {
+    width: 48px;
+    height: 48px;
+    margin-left: -24px;
+    margin-top: -24px;
+    border-width: 3px;
+}
+
+@media (max-width: 768px) {
+    .cursor-follower {
+        display: none;
+    }
+}
+
+/* ---------- Header / Nav (replica of evangong.tech) ---------- */
+.visuallyhidden {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+    clip-path: inset(0px 0px 99.9% 99.9%);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    padding: 0;
+    border: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes dynamicExtBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes dynamicShrBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes dynamicExtend {
+    0% {
+        filter: blur(2px);
+        width: 40vw;
+    }
+    100% {
+        filter: blur(0px);
+        width: 70vw;
+    }
+}
+
+@keyframes dynamicShrink {
+    0% {
+        filter: blur(0px);
+        width: 70vw;
+    }
+    100% {
+        filter: blur(2px);
+        width: 40vw;
+    }
+}
+
+.dynamic-nav {
+    position: fixed;
+    top: 10px;
+    height: 20px;
+    width: 40vw;
+    min-width: 200px;
+    background-color: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--meta);
+    border-radius: 30px;
+    padding: 16px;
+    z-index: 10000;
+}
+
+.dynamic-nav.shrink-anim {
+    animation: dynamicShrink 0.3s ease, dynamicShrBounce 0.5s ease;
+}
+
+.dynamic-nav:hover {
+    animation: dynamicExtend 0.3s ease, dynamicExtBounce 0.5s ease;
+    width: 70vw;
+}
+
+.dynamic-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px 0;
+}
+
+.dynamic-nav li {
+    margin-right: 24px;
+}
+
+.dynamic-nav li:last-child {
+    margin-right: 0;
+}
+
+.nav-link {
+    color: var(--text);
+    text-decoration: none;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.nav-link:hover {
+    color: var(--meta);
+}
+
+.nav-link--active {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.nav-link--active:hover {
+    color: var(--accent);
+}
+
+/* ---------- Main content ---------- */
+.projects-main {
+    position: relative;
+    padding: 120px 5vw 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.projects-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.project-row {
+    border-bottom: 1px solid var(--border);
+    padding: clamp(28px, 4vw, 48px) 0;
+    position: relative;
+    cursor: none;
+}
+
+@media (max-width: 768px) {
+    .project-row {
+        cursor: pointer;
+    }
+}
+
+.project-row-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 24px;
+}
+
+.project-title {
+    font-family: "Oswald", "Space Grotesk", sans-serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.1;
+    transition: color 0.25s ease;
+}
+
+.project-row:hover .project-title {
+    color: var(--accent);
+}
+
+.project-meta {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+    color: var(--meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ---------- Floating preview image (hidden by default) ---------- */
+.project-preview {
+    position: fixed;
+    width: min(380px, 85vw);
+    aspect-ratio: 3/2;
+    pointer-events: none;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    will-change: left, top;
+}
+
+.project-preview-inner {
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.15);
+}
+
+.project-preview-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---------- Responsive nav ---------- */
+@media (max-width: 768px) {
+    .dynamic-nav {
+        width: 90vw;
+        min-width: 0;
+    }
+
+    .dynamic-nav:hover {
+        width: 95vw;
+    }
+
+    .dynamic-nav ul {
+        justify-content: center;
+        gap: 8px 16px;
+    }
+
+    .dynamic-nav li {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-main {
+        padding: 100px 4vw 60px;
+    }
+
+    .project-row {
+        padding: 24px 0;
+    }
+}
