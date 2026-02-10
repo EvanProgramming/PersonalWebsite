@@ -289,12 +289,90 @@ header {
     color: var(--accent);
 }
 
+.project-row-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+}
+
 .project-meta {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: clamp(0.75rem, 1.5vw, 0.95rem);
     color: var(--meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+}
+
+.project-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.project-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--meta);
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+.project-btn__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.project-btn__label {
+    white-space: nowrap;
+}
+
+/* ---------- Description slide-open panel ---------- */
+.project-desc-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-row--desc-open .project-desc-panel {
+    max-height: 320px;
+}
+
+.project-desc-panel__inner {
+    padding: 0 0 20px;
+    border-left: 2px solid var(--accent);
+    margin-left: 2px;
+    padding-left: 20px;
+}
+
+.project-desc-text {
+    margin: 0;
+    color: var(--meta);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.project-row--desc-open .project-btn--desc {
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 /* ---------- Responsive nav (match style.css) ---------- */
@@ -319,6 +397,31 @@ header {
     }
 }
 
+@media (max-width: 768px) {
+    .project-row-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .project-row-right {
+        width: 100%;
+    }
+
+    .project-btn__label {
+        display: none;
+    }
+
+    .project-btn {
+        padding: 10px 12px;
+    }
+
+    .project-btn__icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 @media (max-width: 480px) {
     .projects-main {
         padding: 100px 4vw 60px;
@@ -326,5 +429,9 @@ header {
 
     .project-row {
         padding: 24px 0;
+    }
+
+    .project-row-actions {
+        gap: 8px;
     }
 }

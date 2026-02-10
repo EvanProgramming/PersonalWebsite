@@ -62,6 +62,24 @@
         });
     });
 
+    // ----- Description: slide-open panel (accordion) -----
+    document.querySelectorAll('.project-btn--desc').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var row = btn.closest('.project-row');
+            if (!row) return;
+            var isOpen = row.classList.contains('project-row--desc-open');
+            document.querySelectorAll('.project-row--desc-open').forEach(function (openRow) {
+                openRow.classList.remove('project-row--desc-open');
+                var openBtn = openRow.querySelector('.project-btn--desc');
+                if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                row.classList.add('project-row--desc-open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
     if (typeof gsap === 'undefined') return;
 
     var CURSOR_SELECTOR = '.cursor-follower';
