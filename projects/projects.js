@@ -1,6 +1,39 @@
 (function () {
     'use strict';
 
+    // ----- Lenis smooth scrolling -----
+    var lenis = null;
+    var progressEl = document.getElementById('scroll-progress');
+
+    function updateProgress() {
+        if (!progressEl) return;
+        var scrollTop = lenis ? lenis.scroll : (window.scrollY || document.documentElement.scrollTop);
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressEl.style.width = Math.min(100, pct) + '%';
+    }
+
+    if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+            duration: 1.2,
+            easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+            smoothWheel: true
+        });
+        function raf(time) {
+            lenis.raf(time);
+            updateProgress();
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    } else if (progressEl) {
+        window.addEventListener('scroll', updateProgress, { passive: true });
+    }
+
+    if (progressEl) {
+        window.addEventListener('resize', updateProgress);
+        updateProgress();
+    }
+
     // ----- Nav: shrink-anim and link blur (match script.js) -----
     var dynamicNav = document.querySelector('.dynamic-nav');
     if (dynamicNav) {
@@ -31,41 +64,26 @@
 
     if (typeof gsap === 'undefined') return;
 
-    var PROJECT_PREVIEW_SELECTOR = '#project-preview';
-    var PROJECT_PREVIEW_IMG = '#project-preview-img';
-    var ROW_SELECTOR = '.project-row';
     var CURSOR_SELECTOR = '.cursor-follower';
+    var CURSOR_IMG_ID = 'cursor-preview-img';
+    var ROW_SELECTOR = '.project-row';
 
-    var previewEl = document.querySelector(PROJECT_PREVIEW_SELECTOR);
-    var previewImg = document.querySelector(PROJECT_PREVIEW_IMG);
     var cursorEl = document.querySelector(CURSOR_SELECTOR);
+    var cursorImg = document.getElementById(CURSOR_IMG_ID);
+    var cursorInner = cursorEl && cursorEl.querySelector('.cursor-follower__inner');
     var rows = document.querySelectorAll(ROW_SELECTOR);
 
     var mouse = { x: 0, y: 0 };
     var cursorPos = { x: 0, y: 0 };
-    var previewPos = { x: 0, y: 0 };
     var activeRow = null;
-    var previewVisible = false;
 
-    var LERP = 0.12;
-    var CURSOR_LERP = 0.2;
-    var PREVIEW_LERP = 0.08;
+    var CURSOR_LERP = 0.18;
+    var CURSOR_SIZE = 32;
+    var CURSOR_HOVER_SIZE = 40;
+    var IMAGE_WIDTH = 280;
+    var IMAGE_HEIGHT = Math.round(280 * (2 / 3));
 
-    // ----- Scroll progress -----
-    var progressEl = document.getElementById('scroll-progress');
-    if (progressEl) {
-        function updateProgress() {
-            var scrollTop = window.scrollY || document.documentElement.scrollTop;
-            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            progressEl.style.width = pct + '%';
-        }
-        window.addEventListener('scroll', updateProgress, { passive: true });
-        window.addEventListener('resize', updateProgress);
-        updateProgress();
-    }
-
-    // ----- Custom cursor (lerp follow + scale on project hover) -----
+    // ----- Custom cursor: solid circle, lerp follow -----
     if (cursorEl) {
         document.addEventListener('mousemove', function (e) {
             mouse.x = e.clientX;
@@ -81,6 +99,7 @@
         }
         tickCursor();
 
+        // ----- Cursor scale-up on row hover (whole row) -----
         rows.forEach(function (row) {
             row.addEventListener('mouseenter', function () {
                 cursorEl.classList.add('cursor-follower--hover');
@@ -89,73 +108,81 @@
                 cursorEl.classList.remove('cursor-follower--hover');
             });
         });
-    }
 
-    // ----- Floating preview (lerp position, GSAP scale/fade) -----
-    if (!previewEl || !previewImg) return;
+        // ----- Cursor transforms to image only when hovering the title -----
+        rows.forEach(function (row) {
+            var imgUrl = row.getAttribute('data-image');
+            var titleEl = row.querySelector('.project-title');
+            if (!titleEl) return;
+            var finalText = titleEl.getAttribute('data-text') || titleEl.textContent;
 
-    previewEl.style.visibility = 'hidden';
-    gsap.set(previewEl, { xPercent: -50, yPercent: -50, scale: 0 });
+            titleEl.addEventListener('mouseenter', function () {
+                activeRow = row;
+                cursorEl.classList.add('cursor-follower--image');
 
-    function tickPreview() {
-        previewPos.x += (mouse.x - previewPos.x) * PREVIEW_LERP;
-        previewPos.y += (mouse.y - previewPos.y) * PREVIEW_LERP;
-        if (previewVisible) {
-            previewEl.style.left = previewPos.x + 'px';
-            previewEl.style.top = previewPos.y + 'px';
-        }
-        requestAnimationFrame(tickPreview);
-    }
-    tickPreview();
-
-    rows.forEach(function (row) {
-        var imgUrl = row.getAttribute('data-image');
-        var titleEl = row.querySelector('.project-title');
-        var finalText = titleEl ? (titleEl.getAttribute('data-text') || titleEl.textContent) : '';
-
-        row.addEventListener('mouseenter', function () {
-            activeRow = row;
-            previewVisible = true;
-            previewPos.x = mouse.x;
-            previewPos.y = mouse.y;
-            previewEl.style.left = mouse.x + 'px';
-            previewEl.style.top = mouse.y + 'px';
-
-            if (imgUrl) {
-                previewImg.src = imgUrl;
-                previewImg.alt = finalText;
-            }
-            previewEl.style.visibility = 'visible';
-            gsap.killTweensOf(previewEl);
-            gsap.to(previewEl, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.35,
-                ease: 'power2.out',
-                overwrite: true
-            });
-        });
-
-        row.addEventListener('mouseleave', function () {
-            if (activeRow !== row) return;
-            activeRow = null;
-            gsap.killTweensOf(previewEl);
-            gsap.to(previewEl, {
-                opacity: 0,
-                scale: 0.95,
-                duration: 0.25,
-                ease: 'power2.in',
-                onComplete: function () {
-                    previewVisible = false;
-                    previewEl.style.visibility = 'hidden';
+                if (cursorImg && imgUrl) {
+                    cursorImg.src = imgUrl;
+                    cursorImg.alt = finalText;
                 }
+
+                gsap.killTweensOf(cursorEl);
+                gsap.fromTo(cursorEl, {
+                    width: CURSOR_SIZE,
+                    height: CURSOR_SIZE,
+                    marginLeft: -CURSOR_SIZE / 2,
+                    marginTop: -CURSOR_SIZE / 2,
+                    borderRadius: '50%'
+                }, {
+                    width: IMAGE_WIDTH,
+                    height: IMAGE_HEIGHT,
+                    marginLeft: -IMAGE_WIDTH / 2,
+                    marginTop: -IMAGE_HEIGHT / 2,
+                    borderRadius: 8,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    overwrite: true
+                });
+
+                gsap.killTweensOf(cursorInner);
+                gsap.fromTo(cursorInner, { opacity: 0 }, {
+                    opacity: 1,
+                    duration: 0.35,
+                    delay: 0.05,
+                    ease: 'power2.out'
+                });
+            });
+
+            titleEl.addEventListener('mouseleave', function () {
+                if (activeRow !== row) return;
+                activeRow = null;
+
+                gsap.killTweensOf(cursorInner);
+                gsap.to(cursorInner, {
+                    opacity: 0,
+                    duration: 0.2,
+                    ease: 'power2.in'
+                });
+
+                gsap.killTweensOf(cursorEl);
+                gsap.to(cursorEl, {
+                    width: CURSOR_SIZE,
+                    height: CURSOR_SIZE,
+                    marginLeft: -CURSOR_SIZE / 2,
+                    marginTop: -CURSOR_SIZE / 2,
+                    borderRadius: '50%',
+                    duration: 0.35,
+                    ease: 'power2.in',
+                    overwrite: true,
+                    onComplete: function () {
+                        cursorEl.classList.remove('cursor-follower--image');
+                    }
+                });
             });
         });
-    });
+    }
 
     // ----- Glitch / decode text -----
     var GLITCH_CHARS = '_/-#[]\\|<>';
-    var DECODE_DURATION = 400;
     var DECODE_STEP = 35;
 
     function decodeText(el) {

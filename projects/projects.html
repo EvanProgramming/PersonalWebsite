@@ -13,7 +13,11 @@
 <body>
     <div id="scroll-progress" aria-hidden="true"></div>
     <div class="noise" aria-hidden="true"></div>
-    <div class="cursor-follower" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true">
+        <div class="cursor-follower__inner">
+            <img src="" alt="" id="cursor-preview-img" />
+        </div>
+    </div>
 
     <header>
         <h1 class="visuallyhidden">Projects — Evan Gong</h1>
@@ -62,14 +66,9 @@
                 </div>
             </li>
         </ul>
-
-        <div class="project-preview" id="project-preview" aria-hidden="true">
-            <div class="project-preview-inner">
-                <img src="" alt="" id="project-preview-img" />
-            </div>
-        </div>
     </main>
 
+    <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="projects.js"></script>
 </body>
