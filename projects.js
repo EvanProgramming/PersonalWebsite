@@ -1,6 +1,34 @@
 (function () {
     'use strict';
 
+    // ----- Nav: shrink-anim and link blur (match script.js) -----
+    var dynamicNav = document.querySelector('.dynamic-nav');
+    if (dynamicNav) {
+        dynamicNav.addEventListener('mouseenter', function () {
+            dynamicNav.classList.remove('shrink-anim');
+        });
+        dynamicNav.addEventListener('mouseleave', function () {
+            dynamicNav.classList.add('shrink-anim');
+            dynamicNav.addEventListener('animationend', function handler() {
+                dynamicNav.classList.remove('shrink-anim');
+                dynamicNav.removeEventListener('animationend', handler);
+            });
+        });
+    }
+
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+        link.addEventListener('mouseenter', function () {
+            document.querySelectorAll('.nav-link').forEach(function (other) {
+                if (other !== link) other.classList.add('blurred');
+            });
+        });
+        link.addEventListener('mouseleave', function () {
+            document.querySelectorAll('.nav-link').forEach(function (other) {
+                other.classList.remove('blurred');
+            });
+        });
+    });
+
     if (typeof gsap === 'undefined') return;
 
     var PROJECT_PREVIEW_SELECTOR = '#project-preview';
