@@ -1,0 +1,443 @@
+/* ========== Gallery — "The Warp Speed Stream" ========== */
+:root {
+    --bg: #000000;
+    --text: #FFFFFF;
+    --accent: #00F0FF;
+    --border: #333333;
+    --meta: #9c9c9c;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+body::selection {
+    background-color: var(--accent);
+    color: var(--meta);
+}
+
+/* ---------- Noise overlay ---------- */
+.noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Scroll progress ---------- */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #00ffa2);
+    z-index: 10001;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+}
+
+/* ---------- Dynamic Nav (replicated from evangong.tech) ---------- */
+@keyframes dynamicExtBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes dynamicShrBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes dynamicExtend {
+    0% { filter: blur(2px); width: 40vw; }
+    100% { filter: blur(0px); width: 70vw; }
+}
+
+@keyframes dynamicShrink {
+    0% { filter: blur(0px); width: 70vw; }
+    100% { filter: blur(2px); width: 40vw; }
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.visuallyhidden {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+    clip-path: inset(0px 0px 99.9% 99.9%);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    padding: 0;
+    border: 0;
+}
+
+.dynamic-nav {
+    position: fixed;
+    top: 10px;
+    height: 20px;
+    width: 40vw;
+    background-color: black;
+    color: white;
+    border: 1px solid var(--meta);
+    border-radius: 30px;
+    padding: 16px;
+    z-index: 10000;
+}
+
+.dynamic-nav.shrink-anim {
+    animation: dynamicShrink 0.3s ease, dynamicShrBounce 0.5s ease;
+}
+
+.dynamic-nav:hover {
+    animation: dynamicExtend 0.3s ease, dynamicExtBounce 0.5s ease;
+    width: 70vw;
+}
+
+.dynamic-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+.dynamic-nav li {
+    margin-right: 24px;
+}
+
+.dynamic-nav li:last-child {
+    margin-right: 0;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.5s ease;
+}
+
+.nav-link:hover {
+    color: var(--meta);
+}
+
+.nav-link.nav-link--active {
+    color: var(--accent);
+}
+
+.nav-link.blurred {
+    filter: blur(2px);
+    transition: filter 0.3s;
+}
+
+/* ---------- Gallery Main ---------- */
+.gallery-main {
+    padding: 80px 24px 48px;
+    min-height: 100vh;
+}
+
+.gallery-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    column-count: 3;
+    column-gap: 20px;
+}
+
+/* Masonry items – each gets jelly transform */
+.gallery-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--border);
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.gallery-item img,
+.gallery-item video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%);
+    transition: filter 0.4s ease;
+    transform: scale(1.1);
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video {
+    filter: grayscale(0%);
+}
+
+.gallery-item:hover {
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Sizing variants for asymmetric layout */
+.gallery-item--wide {
+    column-span: all;
+}
+
+.gallery-item--tall img,
+.gallery-item--tall video {
+    min-height: 400px;
+}
+
+/* REC indicator for videos */
+.rec-indicator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+    font-size: 11px;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+}
+
+.gallery-item[data-type="video"]:hover .rec-indicator {
+    opacity: 1;
+}
+
+.rec-dot {
+    color: #ff4444;
+    animation: rec-blink 1s infinite;
+}
+
+@keyframes rec-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+/* ---------- HUD Lightbox ---------- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10003;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.lightbox__content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox__frame {
+    position: relative;
+    border: 1px solid var(--border);
+    padding: 12px;
+}
+
+/* Tech-style bracket corners */
+.lightbox__corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-color: var(--accent);
+    border-style: solid;
+    border-width: 0;
+}
+
+.lightbox__corner--tl {
+    top: -1px;
+    left: -1px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+
+.lightbox__corner--tr {
+    top: -1px;
+    right: -1px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+}
+
+.lightbox__corner--bl {
+    bottom: -1px;
+    left: -1px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.lightbox__corner--br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+}
+
+.lightbox__media-wrap {
+    position: relative;
+    max-width: 85vw;
+    max-height: 75vh;
+}
+
+.lightbox__media {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+}
+
+.lightbox__media--img {
+    display: block;
+}
+
+.lightbox__media--video {
+    display: none;
+}
+
+.lightbox.is-video .lightbox__media--img {
+    display: none;
+}
+
+.lightbox.is-video .lightbox__media--video {
+    display: block;
+}
+
+.lightbox__hud {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+}
+
+.lightbox__meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.lightbox__meta-item {
+    font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+    font-size: 12px;
+    color: var(--accent);
+}
+
+.lightbox__meta-item::before {
+    content: attr(data-label) ": ";
+    color: var(--meta);
+}
+
+.lightbox__meta-value {
+    color: var(--text);
+}
+
+.lightbox__close {
+    font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.lightbox__close:hover {
+    background: rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+    .gallery-container {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .dynamic-nav {
+        width: 90vw;
+    }
+    .dynamic-nav:hover {
+        width: 95vw;
+    }
+    .dynamic-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 16px;
+    }
+    .dynamic-nav li {
+        margin-right: 0;
+    }
+    .gallery-main {
+        padding: 70px 16px 32px;
+    }
+    .gallery-container {
+        column-count: 1;
+        column-gap: 16px;
+    }
+    .gallery-item {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lightbox__meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .lightbox__hud {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

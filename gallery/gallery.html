@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gallery — Evan Gong's photography and video showcase. The Warp Speed Stream.">
+    <title>Gallery — Evan Gong</title>
+    <link rel="stylesheet" href="gallery.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header>
+        <h1 class="visuallyhidden">Gallery — Evan Gong</h1>
+        <nav class="dynamic-nav">
+            <ul>
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../about/about.html">About</a></li>
+                <li><a class="nav-link" href="../projects/projects.html">Projects</a></li>
+                <li><a class="nav-link" href="../blog/blog.html">Blog</a></li>
+                <li><a class="nav-link" href="../iGEM/iGEM.html">iGEM</a></li>
+                <li><a class="nav-link nav-link--active" href="gallery.html">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="gallery-main">
+        <section class="gallery-grid gallery-container" id="gallery-container">
+            <figure class="gallery-item" data-type="image" data-iso="800" data-aperture="F/2.8" data-shutter="1/500s" data-date="2024.11.02">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=800&fit=crop" alt="Cyberpunk cityscape">
+            </figure>
+            <figure class="gallery-item gallery-item--wide" data-type="video" data-iso="640" data-aperture="F/4" data-shutter="1/250s" data-date="2024.10.15">
+                <video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" autoplay muted loop playsinline></video>
+                <span class="rec-indicator" aria-hidden="true">REC <span class="rec-dot">●</span></span>
+            </figure>
+            <figure class="gallery-item" data-type="image" data-iso="400" data-aperture="F/5.6" data-shutter="1/1000s" data-date="2024.11.01">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=900&fit=crop" alt="Technology circuits">
+            </figure>
+            <figure class="gallery-item" data-type="image" data-iso="1600" data-aperture="F/1.8" data-shutter="1/60s" data-date="2024.10.28">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=600&fit=crop" alt="Neon lights">
+            </figure>
+            <figure class="gallery-item gallery-item--tall" data-type="image" data-iso="3200" data-aperture="F/2" data-shutter="1/30s" data-date="2024.10.20">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&h=1000&fit=crop" alt="Space nebula">
+            </figure>
+            <figure class="gallery-item" data-type="video" data-iso="800" data-aperture="F/2.8" data-shutter="1/120s" data-date="2024.10.10">
+                <video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" autoplay muted loop playsinline></video>
+                <span class="rec-indicator" aria-hidden="true">REC <span class="rec-dot">●</span></span>
+            </figure>
+            <figure class="gallery-item" data-type="image" data-iso="100" data-aperture="F/11" data-shutter="2s" data-date="2024.11.05">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop" alt="Abstract tech">
+            </figure>
+            <figure class="gallery-item" data-type="image" data-iso="200" data-aperture="F/8" data-shutter="1/250s" data-date="2024.09.12">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=500&fit=crop" alt="Data visualization">
+            </figure>
+            <figure class="gallery-item gallery-item--wide" data-type="image" data-iso="640" data-aperture="F/4" data-shutter="1/500s" data-date="2024.11.02">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=400&fit=crop" alt="Developer workspace">
+            </figure>
+        </section>
+    </main>
+
+    <!-- HUD Lightbox Modal -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-hidden="true">
+        <div class="lightbox__backdrop"></div>
+        <div class="lightbox__content">
+            <div class="lightbox__frame">
+                <div class="lightbox__corner lightbox__corner--tl"></div>
+                <div class="lightbox__corner lightbox__corner--tr"></div>
+                <div class="lightbox__corner lightbox__corner--bl"></div>
+                <div class="lightbox__corner lightbox__corner--br"></div>
+                <div class="lightbox__media-wrap">
+                    <img class="lightbox__media lightbox__media--img" src="" alt="" id="lightbox-img">
+                    <video class="lightbox__media lightbox__media--video" id="lightbox-video" autoplay muted loop playsinline></video>
+                </div>
+            </div>
+            <div class="lightbox__hud">
+                <div class="lightbox__meta">
+                    <span class="lightbox__meta-item" data-label="ISO"><span class="lightbox__meta-value" id="meta-iso">---</span></span>
+                    <span class="lightbox__meta-item" data-label="APERTURE"><span class="lightbox__meta-value" id="meta-aperture">---</span></span>
+                    <span class="lightbox__meta-item" data-label="SHUTTER"><span class="lightbox__meta-value" id="meta-shutter">---</span></span>
+                    <span class="lightbox__meta-item" data-label="DATE"><span class="lightbox__meta-value" id="meta-date">----.--.--</span></span>
+                </div>
+                <button class="lightbox__close" id="lightbox-close" aria-label="Close lightbox" type="button">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="gallery.js"></script>
+</body>
+</html>
